@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         job: ${{ fromJSON(inputs.lavori) }}
-    env: {HF_HUB_DISABLE_XET: "1", PYTHONUNBUFFERED: "1", ACESTEP_DEVICE: "cpu"}
+    env: {HF_HUB_DISABLE_XET: "1", PYTHONUNBUFFERED: "1", ACESTEP_DEVICE: "cpu", ACESTEP_GENERATION_TIMEOUT: "15000"}
     steps:
       - name: Spazio su disco e memoria di scambio
         run: |
