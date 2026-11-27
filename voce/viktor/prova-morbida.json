@@ -1,0 +1,39 @@
+[
+ {
+  "chiave": "408829f7ed077983",
+  "gruppo": "a-lezioni",
+  "dove": "federico_regno.obiettivi.facile.0",
+  "testo": "Federico II nasce a Jesi nel 1194 e cresce a Palermo.",
+  "lettura": "Federico secondo nasce a Iesi nel millecentonovantaquattro e cresce a Palermo.",
+  "frasi": [
+   "Federico secondo nasce a Iesi nel millecentonovantaquattro e cresce a Palermo"
+  ]
+ },
+ {
+  "chiave": "9c7b5069503fd14d",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.montecatini.briefing.0",
+  "testo": "È l'estate del 1315. Uguccione della Faggiola è un condottiero della Romagna. È signore di Pisa e, da un anno, anche di Lucca. Assedia il castello guelfo di Montecatini, in Valdinievole. Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico VII.",
+  "lettura": "È l'estate del milletrecentoquindici. Uguccione della Faggiola è un condottiero della Romagna. È signore di Pisa e, da un anno, anche di Lucca. Assedia il castello guelfo di Montecatini, in Valdinievole. Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico settimo.",
+  "frasi": [
+   "È l'estate del milletrecentoquindici",
+   "Uguccione della Faggiola è un condottiero della Romagna",
+   "È signore di Pisa e, da un anno, anche di Lucca",
+   "Assedia il castello guelfo di Montecatini, in Valdinievole",
+   "Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico settimo"
+  ]
+ },
+ {
+  "chiave": "f61286d248afdc8e",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.c_fuorusciti.6",
+  "testo": "Dante racconta che cosa vuol dire essere esule nel Paradiso. Parla il suo antenato Cacciaguida. «Tu proverai sì come sa di sale / lo pane altrui, e come è duro calle / lo scendere e 'l salir per l'altrui scale». Vuol dire: sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri.",
+  "lettura": "Dante racconta che cosa vuol dire essere esule nel Paradiso. Parla il suo antenato Cacciaguida. Tu proverai sì come sa di sale, lo pane altrui, e come è duro calle, lo scendere e 'l salir per l'altrui scale. Vuol dire: sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri.",
+  "frasi": [
+   "Dante racconta che cosa vuol dire essere esule nel Paradiso",
+   "Parla il suo antenato Cacciaguida",
+   "Tu proverai sì come sa di sale, lo pane altrui, e come è duro calle, lo scendere e 'l salir per l'altrui scale",
+   "Vuol dire, sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri"
+  ]
+ }
+]

@@ -1,0 +1,41 @@
+[
+ {
+  "chiave": "adc2b59d919ad681",
+  "gruppo": "a-lezioni",
+  "dove": "federico_regno.attivita.completo.0",
+  "testo": "Nella missione «Il re fanciullo» (Palermo, 1208-1209) guidi il giovane re: costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel 1209.",
+  "lettura": "Nella missione Il re fanciullo, Palermo, milleduecentotto e milleduecentonove, guidi il giovane re: costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel milleduecentonove.",
+  "frasi": [
+   "Nella missione Il re fanciullo, Palermo, milleduecentotto e milleduecentonove, guidi il giovane re",
+   "costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel milleduecentonove"
+  ]
+ },
+ {
+  "chiave": "24a621b3ce72981f",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.altopascio.briefing.0",
+  "testo": "Siamo nel 1325. Castruccio Castracani degli Antelminelli è signore di Lucca. Ha preso Pistoia e minaccia Firenze. A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro. Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito. Assedia Altopascio, il castello degli ospitalieri sulla via Francigena.",
+  "lettura": "Siamo nel milletrecentoventicinque. Castruccio Castracani degli Antelminelli è signore di Lucca. Ha preso Pistoia e minaccia Firenze. A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro. Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito. Assedia Altopascio, il castello degli ospitalieri sulla via Francigena.",
+  "frasi": [
+   "Siamo nel milletrecentoventicinque",
+   "Castruccio Castracani degli Antelminelli è signore di Lucca",
+   "Ha preso Pistoia e minaccia Firenze",
+   "A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro",
+   "Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito",
+   "Assedia Altopascio, il castello degli ospitalieri sulla via Francigena"
+  ]
+ },
+ {
+  "chiave": "057f30a3958405f7",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.legnano.storia.0",
+  "testo": "La battaglia si combatté il 29 maggio 1176 tra Legnano e Borsano, nell'Alto Milanese. Federico I aveva passato la notte a Cairate con circa 3.000 uomini. Erano soprattutto cavalieri pesanti appena scesi dalla Germania. Federico voleva raggiungere Pavia.",
+  "lettura": "La battaglia si combatté il ventinove maggio millecentosettantasei tra Legnano e Borsano, nell'Alto Milanese. Federico primo aveva passato la notte a Cairate con circa tremila uomini. Erano soprattutto cavalieri pesanti appena scesi dalla Germania. Federico voleva raggiungere Pavia.",
+  "frasi": [
+   "La battaglia si combatté il ventinove maggio millecentosettantasei tra Legnano e Borsano, nell'Alto Milanese",
+   "Federico primo aveva passato la notte a Cairate con circa tremila uomini",
+   "Erano soprattutto cavalieri pesanti appena scesi dalla Germania",
+   "Federico voleva raggiungere Pavia"
+  ]
+ }
+]

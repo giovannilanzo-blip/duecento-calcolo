@@ -1,0 +1,30 @@
+name: viktor-prova
+# Prova della voce Viktor Eka (Coqui XTTS v2) su 10 letture del gioco, con trascrizione di controllo.
+# Licenza dei pesi: Coqui Public Model License, solo uso non commerciale (gioco scolastico gratuito).
+on:
+  workflow_dispatch:
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {COQUI_TOS_AGREED: "1", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo swapoff -a; sudo fallocate -l 6G /mnt/sw && sudo chmod 600 /mnt/sw && sudo mkswap /mnt/sw && sudo swapon /mnt/sw; free -m
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          pip install -q "torch==2.5.1" "torchaudio==2.5.1" --index-url https://download.pytorch.org/whl/cpu
+          pip install -q coqui-tts soundfile six "transformers>=4.43,<4.50" --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Sintesi
+        run: python voce/viktor.py voce/viktor/prova.json out 1 1
+      - name: Trascrizione di controllo
+        if: always()
+        run: |
+          pip install -q faster-whisper
+          python voce/viktor_verifica.py voce/viktor/prova.json out small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: viktor-prova, path: out, if-no-files-found: warn}

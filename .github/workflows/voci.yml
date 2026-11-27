@@ -1,0 +1,101 @@
+name: campionario-voci
+on:
+  workflow_dispatch:
+    inputs:
+      testo:
+        description: "Frase del campionario"
+        default: "Nel milleduecentocinquantasei, nella valle del Serchio, i cavalieri di Lucca e di Firenze caricano la fanteria pisana schierata dietro i pavesi. È la battaglia di Ponte a Serchio, e i Pisani ne escono sconfitti."
+      motori:
+        description: "Motori da eseguire"
+        default: '["kokoro", "piper", "xtts", "parler", "qwen06", "qwen17design"]'
+      cloni:
+        description: "Eseguire Chatterbox e MOSS (si o no)"
+        default: "si"
+jobs:
+  camp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        motore: ${{ fromJSON(inputs.motori) }}
+    env: {TESTO: "${{ inputs.testo }}", COQUI_TOS_AGREED: "1", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Spazio su disco
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost; df -h / /mnt
+      - name: Installazione
+        run: |
+          case "${{ matrix.motore }}" in
+            kokoro) sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng; pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q "kokoro>=0.9" soundfile ;;
+            piper) pip install -q piper-tts soundfile ;;
+            mms) pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q transformers soundfile ;;
+            xtts) pip install -q "torch==2.5.1" "torchaudio==2.5.1" --index-url https://download.pytorch.org/whl/cpu; pip install -q coqui-tts soundfile six "transformers>=4.43,<4.50" --extra-index-url https://download.pytorch.org/whl/cpu ;;
+            qwen06|qwen17design) sudo swapoff -a; sudo fallocate -l 8G /mnt/sw && sudo chmod 600 /mnt/sw && sudo mkswap /mnt/sw && sudo swapon /mnt/sw; pip install -q torch torchaudio --index-url https://download.pytorch.org/whl/cpu; pip install -q qwen-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu ;;
+            parler) pip install -q "torch==2.5.1" "torchaudio==2.5.1" --index-url https://download.pytorch.org/whl/cpu; pip install -q git+https://github.com/huggingface/parler-tts.git soundfile --extra-index-url https://download.pytorch.org/whl/cpu; pip install -q -U "protobuf>=5.28"; python -c "import torch, torchaudio; print(torch.__version__, torchaudio.__version__)" ;;
+          esac
+      - name: Generazione
+        run: |
+          mkdir -p out
+          if [ "${{ matrix.motore }}" = piper ]; then
+            B=https://huggingface.co/rhasspy/piper-voices/resolve/main/it/it_IT/riccardo/x_low
+            curl -sL -o r.onnx $B/it_IT-riccardo-x_low.onnx
+            curl -sL -o r.onnx.json $B/it_IT-riccardo-x_low.onnx.json
+            python voce/piper_camp.py
+          else
+            python voce/campione.py ${{ matrix.motore }} out
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "camp-${{ matrix.motore }}", path: out, if-no-files-found: warn}
+  camp-cloni:
+    needs: camp
+    if: always() && inputs.cloni == 'si'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env: {TESTO: "${{ inputs.testo }}", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: camp-kokoro, path: kok}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Chatterbox con riferimento sintetico Kokoro
+        run: |
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts --extra-index-url https://download.pytorch.org/whl/cpu
+          /tmp/cb/bin/python voce/cloni.py kok/kokoro-im_nicola.wav out
+      - name: MOSS-TTS-Nano
+        if: always()
+        run: |
+          mkdir -p out
+          git clone --depth 1 https://github.com/OpenMOSS/MOSS-TTS-Nano nano
+          python -m venv /tmp/mo
+          . /tmp/mo/bin/activate
+          cd nano
+          pip install -q pynini==2.1.6.post1 || pip install -q pynini
+          pip install -q torch==2.7.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+          python ../voce/moss_camp.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: camp-cloni, path: out, if-no-files-found: warn}
+  camp-verifica:
+    needs: [camp, camp-cloni]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {pattern: "camp-*", path: tutti}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Trascrizione Whisper
+        run: |
+          pip install -q faster-whisper
+          python voce/trascrivi.py tutti
+      - uses: actions/upload-artifact@v4
+        with: {name: trascrizioni-campionario, path: tutti/trascrizioni.txt}

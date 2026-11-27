@@ -1,0 +1,128 @@
+[
+ {
+  "chiave": "408829f7ed077983",
+  "gruppo": "a-lezioni",
+  "dove": "federico_regno.obiettivi.facile.0",
+  "testo": "Federico II nasce a Jesi nel 1194 e cresce a Palermo.",
+  "lettura": "Federico secondo nasce a Iesi nel millecentonovantaquattro e cresce a Palermo.",
+  "frasi": [
+   "Federico secondo nasce a Iesi nel millecentonovantaquattro e cresce a Palermo"
+  ]
+ },
+ {
+  "chiave": "adc2b59d919ad681",
+  "gruppo": "a-lezioni",
+  "dove": "federico_regno.attivita.completo.0",
+  "testo": "Nella missione «Il re fanciullo» (Palermo, 1208-1209) guidi il giovane re: costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel 1209.",
+  "lettura": "Nella missione Il re fanciullo, Palermo, milleduecentotto e milleduecentonove, guidi il giovane re: costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel milleduecentonove.",
+  "frasi": [
+   "Nella missione Il re fanciullo, Palermo, milleduecentotto e milleduecentonove, guidi il giovane re",
+   "costruisci i giardini irrigati e il mercato, raccogli il cibo e accogli al palazzo Costanza d'Aragona, la sposa arrivata nel milleduecentonove"
+  ]
+ },
+ {
+  "chiave": "9c7b5069503fd14d",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.montecatini.briefing.0",
+  "testo": "È l'estate del 1315. Uguccione della Faggiola è un condottiero della Romagna. È signore di Pisa e, da un anno, anche di Lucca. Assedia il castello guelfo di Montecatini, in Valdinievole. Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico VII.",
+  "lettura": "È l'estate del milletrecentoquindici. Uguccione della Faggiola è un condottiero della Romagna. È signore di Pisa e, da un anno, anche di Lucca. Assedia il castello guelfo di Montecatini, in Valdinievole. Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico settimo.",
+  "frasi": [
+   "È l'estate del milletrecentoquindici",
+   "Uguccione della Faggiola è un condottiero della Romagna",
+   "È signore di Pisa e, da un anno, anche di Lucca",
+   "Assedia il castello guelfo di Montecatini, in Valdinievole",
+   "Con lui ci sono i cavalieri tedeschi rimasti in Italia dopo la morte dell'imperatore Enrico settimo"
+  ]
+ },
+ {
+  "chiave": "24a621b3ce72981f",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.altopascio.briefing.0",
+  "testo": "Siamo nel 1325. Castruccio Castracani degli Antelminelli è signore di Lucca. Ha preso Pistoia e minaccia Firenze. A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro. Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito. Assedia Altopascio, il castello degli ospitalieri sulla via Francigena.",
+  "lettura": "Siamo nel milletrecentoventicinque. Castruccio Castracani degli Antelminelli è signore di Lucca. Ha preso Pistoia e minaccia Firenze. A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro. Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito. Assedia Altopascio, il castello degli ospitalieri sulla via Francigena.",
+  "frasi": [
+   "Siamo nel milletrecentoventicinque",
+   "Castruccio Castracani degli Antelminelli è signore di Lucca",
+   "Ha preso Pistoia e minaccia Firenze",
+   "A giugno i fiorentini hanno corso un palio sotto le mura di Pistoia per prenderlo in giro",
+   "Ora il loro capitano, il catalano Raimondo di Cardona, è arrivato con un grande esercito",
+   "Assedia Altopascio, il castello degli ospitalieri sulla via Francigena"
+  ]
+ },
+ {
+  "chiave": "0198530d9fdb4231",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.ezzelino.0",
+  "testo": "Ezzelino III da Romano era di una famiglia feudale del Veneto. Nacque nel 1194.",
+  "lettura": "Ezzelino terzo da Romano era di una famiglia feudale del Veneto. Nacque nel millecentonovantaquattro.",
+  "frasi": [
+   "Ezzelino terzo da Romano era di una famiglia feudale del Veneto",
+   "Nacque nel millecentonovantaquattro"
+  ]
+ },
+ {
+  "chiave": "057f30a3958405f7",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.legnano.storia.0",
+  "testo": "La battaglia si combatté il 29 maggio 1176 tra Legnano e Borsano, nell'Alto Milanese. Federico I aveva passato la notte a Cairate con circa 3.000 uomini. Erano soprattutto cavalieri pesanti appena scesi dalla Germania. Federico voleva raggiungere Pavia.",
+  "lettura": "La battaglia si combatté il ventinove maggio millecentosettantasei tra Legnano e Borsano, nell'Alto Milanese. Federico primo aveva passato la notte a Cairate con circa tremila uomini. Erano soprattutto cavalieri pesanti appena scesi dalla Germania. Federico voleva raggiungere Pavia.",
+  "frasi": [
+   "La battaglia si combatté il ventinove maggio millecentosettantasei tra Legnano e Borsano, nell'Alto Milanese",
+   "Federico primo aveva passato la notte a Cairate con circa tremila uomini",
+   "Erano soprattutto cavalieri pesanti appena scesi dalla Germania",
+   "Federico voleva raggiungere Pavia"
+  ]
+ },
+ {
+  "chiave": "7c228763891b6d1f",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA_SICILIA.termini_1302.storia.0",
+  "testo": "Nel 1301 il papa Bonifacio VIII chiamò in Italia Carlo di Valois. Prima di andare in Sicilia, Carlo passò da Firenze e aiutò i Neri contro i Bianchi. Tra i Bianchi c'era Dante.",
+  "lettura": "Nel milletrecentouno il papa Bonifacio ottavo chiamò in Italia Carlo di Valuà. Prima di andare in Sicilia, Carlo passò da Firenze e aiutò i Neri contro i Bianchi. Tra i Bianchi c'era Dante.",
+  "frasi": [
+   "Nel milletrecentouno il papa Bonifacio ottavo chiamò in Italia Carlo di Valuà",
+   "Prima di andare in Sicilia, Carlo passò da Firenze e aiutò i Neri contro i Bianchi",
+   "Tra i Bianchi c'era Dante"
+  ]
+ },
+ {
+  "chiave": "164ca3d555a3da59",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.montaperti_fi.storia.7",
+  "testo": "Dante mette Bocca tra i traditori della patria, nel ghiaccio dell'Antenora (Inferno XXXII). Nel dialogo con Farinata ricorda «lo strazio e 'l grande scempio / che fece l'Arbia colorata in rosso» (Inferno X, 85-86). Vuol dire: la strage che tinse di sangue il fiume Arbia. Farinata, poco dopo, a Empoli si oppose alla distruzione di Firenze.",
+  "lettura": "Dante mette Bocca tra i traditori della patria, nel ghiaccio dell'Antenora, Inferno, canto trentaduesimo. Nel dialogo con Farinata ricorda lo strazio e 'l grande scempio, che fece l'Arbia colorata in rosso, Inferno, canto decimo, versi ottantacinque e ottantasei. Vuol dire: la strage che tinse di sangue il fiume Arbia. Farinata, poco dopo, a Empoli si oppose alla distruzione di Firenze.",
+  "frasi": [
+   "Dante mette Bocca tra i traditori della patria, nel ghiaccio dell'Antenora, Inferno, canto trentaduesimo",
+   "Nel dialogo con Farinata ricorda lo strazio e 'l grande scempio, che fece l'Arbia colorata in rosso, Inferno, canto decimo, versi ottantacinque e ottantasei",
+   "Vuol dire, la strage che tinse di sangue il fiume Arbia",
+   "Farinata, poco dopo, a Empoli si oppose alla distruzione di Firenze"
+  ]
+ },
+ {
+  "chiave": "f61286d248afdc8e",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.c_fuorusciti.6",
+  "testo": "Dante racconta che cosa vuol dire essere esule nel Paradiso. Parla il suo antenato Cacciaguida. «Tu proverai sì come sa di sale / lo pane altrui, e come è duro calle / lo scendere e 'l salir per l'altrui scale». Vuol dire: sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri.",
+  "lettura": "Dante racconta che cosa vuol dire essere esule nel Paradiso. Parla il suo antenato Cacciaguida. Tu proverai sì come sa di sale, lo pane altrui, e come è duro calle, lo scendere e 'l salir per l'altrui scale. Vuol dire: sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri.",
+  "frasi": [
+   "Dante racconta che cosa vuol dire essere esule nel Paradiso",
+   "Parla il suo antenato Cacciaguida",
+   "Tu proverai sì come sa di sale, lo pane altrui, e come è duro calle, lo scendere e 'l salir per l'altrui scale",
+   "Vuol dire, sentirai quanto è amaro il pane degli altri, e quanto è dura la vita in casa d'altri"
+  ]
+ },
+ {
+  "chiave": "2efc2a24d5f8e860",
+  "gruppo": "e-descrizioni",
+  "dove": "DIDATTICA.desc.casatorre_arezzo.0",
+  "testo": "È il campanile della Pieve di Santa Maria ad Arezzo, finito nel 1330. Lo chiamano «delle cento buche» per le sue file di finestre. In realtà le finestre sono 40, su 5 piani. La data è di poco più tarda del 1328. In cima ha una punta di pietra.",
+  "lettura": "È il campanile della Pieve di Santa Maria ad Arezzo, finito nel milletrecentotrenta. Lo chiamano delle cento buche per le sue file di finestre. In realtà le finestre sono quaranta, su cinque piani. La data è di poco più tarda del milletrecentoventotto. In cima ha una punta di pietra.",
+  "frasi": [
+   "È il campanile della Pieve di Santa Maria ad Arezzo, finito nel milletrecentotrenta",
+   "Lo chiamano delle cento buche per le sue file di finestre",
+   "In realtà le finestre sono quaranta, su cinque piani",
+   "La data è di poco più tarda del milletrecentoventotto",
+   "In cima ha una punta di pietra"
+  ]
+ }
+]

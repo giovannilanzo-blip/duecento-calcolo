@@ -1,0 +1,72 @@
+name: immagini
+on:
+  workflow_dispatch:
+    inputs:
+      lotto:
+        description: "File JSON con i soggetti (percorso nel repository)"
+        default: "immagini/lotto1.json"
+      modello:
+        description: "klein oppure qwen"
+        default: "klein"
+      schegge:
+        description: "Numero di macchine in parallelo (1-6)"
+        default: "4"
+      solo:
+        description: "Elenco di id separati da virgole (vuoto = tutti)"
+        default: ""
+jobs:
+  prepara:
+    runs-on: ubuntu-latest
+    outputs:
+      indici: ${{ steps.m.outputs.indici }}
+    steps:
+      - id: m
+        run: echo "indici=$(python3 -c "import json;print(json.dumps(list(range(int('${{ inputs.schegge }}')))))")" >> "$GITHUB_OUTPUT"
+  genera:
+    needs: prepara
+    runs-on: ubuntu-24.04
+    timeout-minutes: 58
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.prepara.outputs.indici) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Risorse e spazio su disco
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          nproc; free -h; df -h / | tail -1
+      - name: Programma stable-diffusion.cpp (release master-686, CPU)
+        run: |
+          curl -sSL -o sd.zip https://github.com/leejet/stable-diffusion.cpp/releases/download/master-686-1b702a5/sd-master-1b702a5-bin-Linux-Ubuntu-24.04-x86_64.zip
+          mkdir sd && cd sd && unzip -q ../sd.zip && ls && chmod +x sd-cli* sd* || true
+      - name: Cache dei pesi
+        uses: actions/cache@v4
+        with:
+          path: modelli
+          key: pesi-${{ inputs.modello }}-v1
+      - name: Pesi (scaricati in modo anonimo da Hugging Face)
+        run: |
+          mkdir -p modelli && cd modelli
+          scarica() { [ -s "$2" ] || curl -sSL --retry 3 -o "$2" "https://huggingface.co/$1/resolve/main/$3"; ls -la "$2"; }
+          if [ "${{ inputs.modello }}" = "klein" ]; then
+            scarica unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf flux-2-klein-4b-Q4_K_M.gguf
+            scarica unsloth/Qwen3-4B-GGUF Qwen3-4B-Q4_K_M.gguf Qwen3-4B-Q4_K_M.gguf
+            scarica Comfy-Org/flux2-klein-4B flux2-vae.safetensors split_files/vae/flux2-vae.safetensors
+          else
+            scarica unsloth/Qwen-Image-2512-GGUF qwen-image-2512-Q2_K.gguf qwen-image-2512-Q2_K.gguf
+            scarica unsloth/Qwen2.5-VL-7B-Instruct-GGUF Qwen2.5-VL-7B-Instruct-Q3_K_M.gguf Qwen2.5-VL-7B-Instruct-Q3_K_M.gguf
+            scarica Comfy-Org/Qwen-Image_ComfyUI qwen_image_vae.safetensors split_files/vae/qwen_image_vae.safetensors
+            scarica lightx2v/Qwen-Image-2512-Lightning Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors
+          fi
+          df -h / | tail -1
+      - name: Generazione
+        run: |
+          for d in $(find "$PWD/sd" -name "*.so*" -exec dirname {} \; | sort -u); do export LD_LIBRARY_PATH="$d:$LD_LIBRARY_PATH"; done
+          ls sd
+          python3 immagini/genera_sdcpp.py "${{ inputs.lotto }}" "${{ inputs.modello }}" ${{ matrix.k }} ${{ inputs.schegge }} uscita "${{ inputs.solo }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: immagini-${{ inputs.modello }}-${{ matrix.k }}
+          path: uscita

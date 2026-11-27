@@ -1,0 +1,104 @@
+[
+ {
+  "id": "cielo1",
+  "ar": "2:1",
+  "seed": 1101,
+  "prompt": "Wide panoramic photograph of a deep clear summer sky, saturated cerulean blue at the top gradually becoming lighter blue near the horizon, a few small scattered white cumulus clouds, only sky, no ground, no buildings, no birds, no aircraft, no contrails, no sun flare, natural high-resolution photo"
+ },
+ {
+  "id": "cielo2",
+  "ar": "2:1",
+  "seed": 1102,
+  "prompt": "Panoramic view of a limpid azure Mediterranean summer sky at late morning, intense blue, sparse small fair-weather cumulus clouds near the horizon, thin low strip of distant hazy green Tuscan hills at the very bottom, no buildings, no towers, no antennas, no aircraft, realistic photograph"
+ },
+ {
+  "id": "cielo3",
+  "ar": "2:1",
+  "seed": 1103,
+  "prompt": "Ultra wide sky backdrop for film, rich clear blue sky with soft gradient, a few delicate wispy cirrus clouds high up and two small white cumulus clouds, bright summer daylight, only sky, photorealistic, no ground, no objects"
+ },
+ {
+  "id": "monti_serchio",
+  "ar": "16:9",
+  "seed": 1201,
+  "prompt": "Matte painting, realistic, distant view of the Serchio river valley in Tuscany in the Middle Ages: forested green mountains of the Apuan Alps and Apennines with rocky grey peaks far away, layered aerial perspective with bluish haze, a river winding through a flat green plain of small fields and rows of trees, clear blue summer sky, no modern buildings, no roads, no power lines, no towns, no vineyards in rows"
+ },
+ {
+  "id": "costa_termini",
+  "ar": "16:9",
+  "seed": 1202,
+  "prompt": "Matte painting, realistic, the northern coast of Sicily near Termini Imerese seen from the sea: a pale grey limestone mountain rising steeply behind a calm turquoise and deep blue Tyrrhenian sea, rocky shore, dry golden grass, Mediterranean scrub and a few olive trees, clear blue summer sky, no modern buildings, no harbour, no cranes, no roads, no towns, no boats"
+ },
+ {
+  "id": "tex_coppi",
+  "ar": "1:1",
+  "seed": 1301,
+  "prompt": "Seamless tileable texture, top-down orthographic view of an old Tuscan roof made of handmade terracotta coppi tiles (curved Roman barrel tiles) in regular overlapping rows, warm orange-red and brown clay with weathering, lichen and dust, even flat lighting, no shadows from the sun, no perspective, fills the whole frame"
+ },
+ {
+  "id": "tex_muro_lucca",
+  "ar": "1:1",
+  "seed": 1302,
+  "prompt": "Seamless tileable texture, front orthographic view of a medieval stone wall from Lucca, Tuscany, 13th century: squared blocks of grey and ochre limestone and greenish sandstone laid in regular horizontal courses with thin lime mortar joints, weathered surfaces, even flat lighting, no perspective, fills the whole frame"
+ },
+ {
+  "id": "tex_intonaco",
+  "ar": "1:1",
+  "seed": 1303,
+  "prompt": "Seamless tileable texture, front orthographic view of an old Sicilian lime plaster wall, off-white and pale cream whitewash with subtle stains, hairline cracks and small patches where the plaster has fallen revealing stone, matte, even flat lighting, no perspective, fills the whole frame"
+ },
+ {
+  "id": "tex_arato",
+  "ar": "1:1",
+  "seed": 1304,
+  "prompt": "Seamless tileable texture, top-down orthographic view of a freshly ploughed field in Tuscany, parallel furrows of brown earth with clods, a few dry stalks and small stones, even flat daylight, no perspective, no tractor tracks, fills the whole frame"
+ },
+ {
+  "id": "tex_calcare",
+  "ar": "1:1",
+  "seed": 1305,
+  "prompt": "Seamless tileable texture, front orthographic view of a natural pale limestone rock face from Sicily, light grey and warm beige karst limestone with cracks, small cavities, fine layers and patches of dark weathering, even flat lighting, no perspective, fills the whole frame"
+ },
+ {
+  "id": "menu",
+  "ar": "16:9",
+  "seed": 1401,
+  "prompt": "Painted illustration for the title screen of a historical strategy game, a medieval Tuscan walled city in the year 1256 seen from a hill: crenellated stone walls with square towers and gates, tall slender stone tower houses, red terracotta roofs, a Romanesque church with white and green marble facade and bell tower, a river and green plain with fields, mountains behind, clear blue summer sky, warm light, detailed, no Renaissance buildings, no domes, no modern objects, no text"
+ },
+ {
+  "id": "vucciria",
+  "ar": "16:9",
+  "seed": 1402,
+  "prompt": "Detailed historical illustration of a busy open-air market in medieval Palermo, Sicily, in the year 1260: wooden stalls with awnings selling fish, lemons, oranges, aubergines, bread, spices and cloth; Norman-Arab buildings of yellow stone with pointed arches and small white lime-plastered domes; merchants and townspeople in simple wool tunics and head cloths of various colours, women with veils, only a few men with beards, realistic anatomy, clear blue sky, no sugar cane, no red domes, no modern objects, no text"
+ },
+ {
+  "id": "battaglia",
+  "ar": "16:9",
+  "seed": 1403,
+  "prompt": "Detailed historical illustration of the battle of Ponte a Serchio in 1256, Tuscany: near a medieval stone bridge over the river Serchio, mounted knights and foot soldiers fight; soldiers wear mail hauberks, round kettle hats or simple rounded steel helmets and mail coifs, long sleeveless surcoats covering the body; one army in white surcoats, the other army in red surcoats; kite and heater shields, long spears and swords; horses with realistic anatomy; most soldiers clean-shaven, few beards; green hills and clear blue sky; no plate armour, no great helms with plumes, no guns, no text"
+ },
+ {
+  "id": "ritratto1",
+  "ar": "1:1",
+  "seed": 1501,
+  "prompt": "Bust portrait of a 13th-century Tuscan merchant, man about 40 years old, clean-shaven, facing the viewer, wearing a red wool cap (berretto) and a simple long tunic of brown-ochre wool with a round neck, plain warm ochre-brown studio background, soft frontal light, realistic painted style, realistic anatomy, no jewellery, no text"
+ },
+ {
+  "id": "ritratto2",
+  "ar": "1:1",
+  "seed": 1502,
+  "prompt": "Bust portrait of a 13th-century Italian noblewoman, about 30 years old, facing the viewer, white linen wimple and barbette framing the face, red wool gown with a blue mantle fastened by a small gold brooch, plain warm ochre-brown studio background, soft frontal light, realistic painted style, realistic anatomy, no text"
+ },
+ {
+  "id": "ritratto_ref",
+  "ar": "1:1",
+  "seed": 1503,
+  "modelli": [
+   "klein"
+  ],
+  "ref": [
+   "immagini/ref/fibonacci.png"
+  ],
+  "prompt": "Repaint this character as a refined realistic medieval portrait painting, same pose, same framing, same red wool cap, same ochre-brown tunic and same plain ochre background, natural human skin, realistic eyes and face, 13th century Pisan scholar, no beard, no text"
+ }
+]

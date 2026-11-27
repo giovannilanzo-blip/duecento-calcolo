@@ -1,0 +1,11 @@
+name: prova-macchina
+on: workflow_dispatch
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Risorse della macchina
+        run: |
+          nproc; free -h; df -h / | tail -1
+          python3 --version
+          ffmpeg -version | head -1 || echo "ffmpeg assente"

@@ -1,0 +1,59 @@
+name: viktor-morbida
+# Voce Viktor Eka (Coqui XTTS v2): prova della chiusura delle frasi (nessun segno, virgola, punto) e tre varianti
+# di ammorbidimento del timbro (A leggera, B media, C decisa), con impostazioni di XTTS e filtri ffmpeg.
+# Licenza dei pesi: Coqui Public Model License, solo uso non commerciale (gioco scolastico gratuito).
+on:
+  workflow_dispatch:
+jobs:
+  morbida:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env: {COQUI_TOS_AGREED: "1", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          nproc; free -m
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          pip install -q "torch==2.5.1" "torchaudio==2.5.1" --index-url https://download.pytorch.org/whl/cpu
+          pip install -q coqui-tts soundfile six "transformers>=4.43,<4.50" faster-whisper --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Chiusura delle frasi
+        run: |
+          for m in nulla virgola punto; do FINE=$m python voce/viktor.py voce/viktor/prova-fine.json out/fine-$m 1 1; done
+      - name: Variante A leggera
+        env:
+          FINE: virgola
+          TEMP: "0.70"
+          TOP_P: "0.85"
+          REP: "5.0"
+          SPEED: "1.0"
+          FILTRO: "equalizer=f=200:t=q:w=1:g=1,highshelf=f=6000:g=-2,lowpass=f=12000"
+        run: python voce/viktor.py voce/viktor/prova-morbida.json out/morbida-A 1 1
+      - name: Variante B media
+        env:
+          FINE: virgola
+          TEMP: "0.70"
+          TOP_P: "0.82"
+          REP: "7.0"
+          SPEED: "0.95"
+          FILTRO: "equalizer=f=200:t=q:w=1:g=1.5,highshelf=f=5500:g=-3.5,deesser=i=0.4,lowpass=f=11500,acompressor=threshold=-20dB:ratio=2:attack=20:release=200"
+        run: python voce/viktor.py voce/viktor/prova-morbida.json out/morbida-B 1 1
+      - name: Variante C decisa
+        env:
+          FINE: virgola
+          TEMP: "0.65"
+          TOP_P: "0.80"
+          REP: "7.0"
+          SPEED: "0.95"
+          FILTRO: "equalizer=f=180:t=q:w=1:g=2,highshelf=f=5000:g=-4.5,deesser=i=0.6,lowpass=f=11000,acompressor=threshold=-22dB:ratio=2.5:attack=15:release=250,aecho=0.8:0.85:28|47:0.10|0.06"
+        run: python voce/viktor.py voce/viktor/prova-morbida.json out/morbida-C 1 1
+      - name: Trascrizione di controllo
+        if: always()
+        run: |
+          for d in out/fine-nulla out/fine-virgola out/fine-punto; do python voce/viktor_verifica.py voce/viktor/prova-fine.json $d small; done
+          for d in out/morbida-A out/morbida-B out/morbida-C; do python voce/viktor_verifica.py voce/viktor/prova-morbida.json $d small; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: viktor-morbida, path: out, if-no-files-found: warn}
