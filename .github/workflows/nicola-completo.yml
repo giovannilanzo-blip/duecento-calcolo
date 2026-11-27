@@ -1,0 +1,56 @@
+name: nicola-completo
+# Generazione completa delle letture del gioco con Kokoro-82M (voce predefinita «im_nicola», Apache 2.0), in lotti paralleli.
+# Ogni job sintetizza il proprio lotto (bilanciato per caratteri) e smette di cominciare testi nuovi alla scadenza;
+# i testi rimasti finiscono in «mancanti» nel registro e si riprendono aggiungendo le chiavi già fatte al file indicato in «fatti».
+# Con l'input «elenco» si può passare un sottoinsieme dei testi (per esempio la parte assegnata a una seconda voce).
+on:
+  workflow_dispatch:
+    inputs:
+      voce:
+        description: "Voce di Kokoro (im_nicola, oppure una voce femminile come if_sara)"
+        default: "im_nicola"
+      elenco:
+        description: "File dei testi preparati"
+        default: "voce/viktor/testi.json"
+      fatti:
+        description: "File con le chiavi già fatte, da saltare"
+        default: "voce/nicola/fatti.txt"
+      parti:
+        description: "Numero totale dei lotti"
+        default: "10"
+      lotti:
+        description: "Lotti da eseguire in questo lancio (elenco JSON)"
+        default: "[1,2,3,4,5,6,7,8,9,10]"
+      scadenza:
+        description: "Minuti di sintesi per job, oltre i quali non si comincia un testo nuovo"
+        default: "45"
+      verifica:
+        description: "Trascrizione di controllo con Whisper small (si o no)"
+        default: "si"
+jobs:
+  lotto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        lotto: ${{ fromJSON(inputs.lotti) }}
+    env: {HF_HUB_DISABLE_XET: "1", VOCE: "${{ inputs.voce }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9" soundfile faster-whisper
+      - name: Sintesi
+        run: python voce/nicola.py ${{ inputs.elenco }} out ${{ matrix.lotto }} ${{ inputs.parti }} $(( ${{ inputs.scadenza }} * 60 )) ${{ inputs.fatti }}
+      - name: Trascrizione di controllo
+        if: always() && inputs.verifica == 'si'
+        run: python voce/viktor_verifica.py ${{ inputs.elenco }} out small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "nicola-lotto-${{ matrix.lotto }}", path: out, if-no-files-found: warn, retention-days: 14}

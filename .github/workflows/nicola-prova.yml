@@ -1,0 +1,30 @@
+name: nicola-prova
+# Prova della voce Kokoro-82M «im_nicola» (Apache 2.0) sulle stesse 10 letture della prova di Viktor, con trascrizione di controllo.
+on:
+  workflow_dispatch:
+    inputs:
+      voce:
+        description: "Voce di Kokoro"
+        default: "im_nicola"
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {HF_HUB_DISABLE_XET: "1", VOCE: "${{ inputs.voce }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9" soundfile faster-whisper
+      - name: Sintesi
+        run: python voce/nicola.py voce/viktor/prova.json out 1 1
+      - name: Trascrizione di controllo
+        if: always()
+        run: python voce/viktor_verifica.py voce/viktor/prova.json out small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: nicola-prova, path: out, if-no-files-found: warn}
