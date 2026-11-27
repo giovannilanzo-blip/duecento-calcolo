@@ -1,15 +1,16 @@
 name: rese-termini
-# Resa a blocchi del volo su Termini (video «Duecento») con Blender 4.5 ed EEVEE in software (Mesa llvmpipe sotto Xvfb).
-# La scena impacchettata sta sul ramo indicato (non su main); ogni lavoro rende un intervallo di fotogrammi e lo carica come artefatto.
+# Volo su Termini (video «Duecento»): ogni lavoro costruisce la scena dagli script del ramo indicato (geometria e materiali
+# tutti procedurali), aggiunge la camera della variante scelta e rende con EEVEE in software (Mesa llvmpipe sotto Xvfb).
+# Un lavoro a parte rende la tavola dei fotogrammi chiave a metà risoluzione; gli altri rendono intervalli di fotogrammi.
 on:
   workflow_dispatch:
     inputs:
       ramo:
-        description: "Ramo con la scena"
+        description: "Ramo con gli script"
         default: "rese-termini"
-      scena:
-        description: "File .blend nel ramo"
-        default: "termini/termini_c.blend"
+      variante:
+        description: "Variante del percorso (percorso2.py)"
+        default: "C"
       inizio:
         description: "Primo fotogramma"
         default: "0"
@@ -17,8 +18,14 @@ on:
         description: "Ultimo fotogramma"
         default: "865"
       lavori:
-        description: "Numero di lavori in parallelo"
+        description: "Numero di lavori di resa in parallelo"
         default: "12"
+      tavola:
+        description: "Fotogrammi della tavola (vuoto = niente tavola)"
+        default: "45,150,330,400,560,680,750,860"
+      campioni:
+        description: "Campioni EEVEE della resa"
+        default: "32"
 jobs:
   prepara:
     runs-on: ubuntu-latest
@@ -30,18 +37,26 @@ jobs:
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
           import json, math
           a, b, n = int("${{ inputs.inizio }}"), int("${{ inputs.fine }}"), int("${{ inputs.lavori }}")
-          tot = b - a + 1; k = math.ceil(tot / n)
-          bl = [{"i": i, "a": a + i * k, "b": min(b, a + (i + 1) * k - 1)} for i in range(n) if a + i * k <= b]
+          tav = "${{ inputs.tavola }}".strip()
+          tot = b - a + 1; k = math.ceil(tot / n) if n > 0 else 0
+          bl = [{"i": str(i), "a": a + i * k, "b": min(b, a + (i + 1) * k - 1), "t": ""} for i in range(n) if a + i * k <= b]
+          if tav:
+              bl.insert(0, {"i": "tavola", "a": 0, "b": 0, "t": tav})
           print("blocchi=" + json.dumps(bl))
           EOF
   rendi:
     needs: prepara
     runs-on: ubuntu-24.04
-    timeout-minutes: 300
+    timeout-minutes: 330
     strategy:
       fail-fast: false
       matrix:
         blocco: ${{ fromJson(needs.prepara.outputs.blocchi) }}
+    env:
+      TE_VARIANTE: ${{ inputs.variante }}
+      TE_SAMPLES: ${{ inputs.campioni }}
+      LIBGL_ALWAYS_SOFTWARE: "1"
+      GALLIUM_DRIVER: llvmpipe
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,7 +64,7 @@ jobs:
       - name: Librerie grafiche in software
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri libegl1 libegl-mesa0 libglx-mesa0 libxi6 libxkbcommon0 libxkbcommon-x11-0 libxrender1 libsm6 libxxf86vm1 libxfixes3 libxinerama1 libxcursor1 libxrandr2 libvulkan1 mesa-vulkan-drivers > /dev/null
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri libegl1 libegl-mesa0 libglx-mesa0 libxi6 libxkbcommon0 libxkbcommon-x11-0 libxrender1 libsm6 libxxf86vm1 libxfixes3 libxinerama1 libxcursor1 libxrandr2 > /dev/null
           nproc; free -h
       - name: Cache di Blender
         uses: actions/cache@v4
@@ -65,12 +80,22 @@ jobs:
             mkdir blender && tar -xf b.tar.xz -C blender --strip-components=1
           fi
           blender/blender --version | head -1
-      - name: Resa dei fotogrammi ${{ matrix.blocco.a }}-${{ matrix.blocco.b }}
+      - name: Costruzione della scena e della camera
         run: |
+          S=termini/video/termini/scripts
+          xvfb-run -a -s "-screen 0 1920x1080x24" blender/blender -b -t 4 --factory-startup -P $S/termini.py -- --build 2>&1 | grep -E "SALVATO|acquedotto|scalo|case |Error|Traceback|rror:|line [0-9]" || true
+          xvfb-run -a -s "-screen 0 1920x1080x24" blender/blender -b -t 4 termini/video/termini/termini.blend -P $S/volo2.py -- --camera 2>&1 | grep -E "SALVATO|lunghezza|Error|Traceback|rror:|line [0-9]" || true
+          ls -la termini/video/termini/*.blend
+      - name: Resa
+        run: |
+          S=termini/video/termini/scripts
           mkdir -p out
-          export LIBGL_ALWAYS_SOFTWARE=1 GALLIUM_DRIVER=llvmpipe LP_NUM_THREADS=4
-          xvfb-run -a -s "-screen 0 1920x1080x24" blender/blender -b "${{ inputs.scena }}" -t 4 \
-            -o "$PWD/out/f_####" -F PNG -s ${{ matrix.blocco.a }} -e ${{ matrix.blocco.b }} -a 2>&1 | grep -vE "^Fra:|^$" | tail -60
+          if [ -n "${{ matrix.blocco.t }}" ]; then
+            ARG="--frames ${{ matrix.blocco.t }} --pct 50"
+          else
+            ARG="--render ${{ matrix.blocco.a }} ${{ matrix.blocco.b }}"
+          fi
+          xvfb-run -a -s "-screen 0 1920x1080x24" blender/blender -b -t 4 termini/video/termini/termini_volo2.blend -P $S/volo2.py -- $ARG --out "$PWD/out" 2>&1 | grep -E "RESO|RESI|Fra:.*Time|Error|Traceback|rror:|line [0-9]" | tail -40 || true
           ls out | wc -l
       - uses: actions/upload-artifact@v4
         with:
