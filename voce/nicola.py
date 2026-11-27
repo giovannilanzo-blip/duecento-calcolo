@@ -39,9 +39,10 @@ registro, mancanti = [], []
 for n, x in enumerate(mio):
     if time.time() - t_avvio > scadenza:
         mancanti.append(x["chiave"]); continue
-    t0 = time.time(); pezzi = [np.zeros(int(BORDO * SR), np.float32)]
+    t0 = time.time(); pezzi = [np.zeros(int(BORDO * SR), np.float32)]; fon = []
     with torch.inference_mode():
-        for _, _, a in pipe(x["lettura"], voice=VOCE, speed=VELOCITA, split_pattern=r"(?<=[.!?;:])\s+"):
+        for _, ps, a in pipe(x["lettura"], voice=VOCE, speed=VELOCITA, split_pattern=r"(?<=[.!?;:])\s+"):
+            fon.append(str(ps))
             if a is None: continue
             a = a.numpy() if hasattr(a, "numpy") else np.asarray(a)
             pezzi += [a.astype(np.float32), np.zeros(int(PAUSA * SR), np.float32)]
@@ -52,6 +53,8 @@ for n, x in enumerate(mio):
     subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-y", "-i", tmp, "-af", "loudnorm=I=-21:TP=-2:LRA=11",
                     "-ar", "44100", "-ac", "1", "-b:a", "64k", mp3], check=True)
     os.remove(tmp)
+    if os.environ.get("FONEMI"):   # fonemi di Kokoro con gli accenti tonici (ˈ), per controllare la pronuncia
+        open(os.path.join(uscita, x["chiave"] + ".fonemi.txt"), "w", encoding="utf8").write(x["lettura"] + "\n" + " | ".join(fon) + "\n")
     dur = len(wav) / SR; sec = time.time() - t0
     del wav, pezzi; gc.collect()
     registro.append({"chiave": x["chiave"], "gruppo": x["gruppo"], "durata_s": round(dur, 1), "calcolo_s": round(sec, 1)})

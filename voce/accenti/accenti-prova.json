@@ -1,0 +1,608 @@
+[
+ {
+  "chiave": "a01-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I poveri mangiavano pani di segale, orzo, miglio o panico.",
+  "lettura": "I poveri mangiavano pani di segale, orzo, miglio o panico.",
+  "parole": [
+   [
+    "segale",
+    "ségale"
+   ],
+   [
+    "panico",
+    "panìco"
+   ]
+  ]
+ },
+ {
+  "chiave": "a01-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I poveri mangiavano pani di segale, orzo, miglio o panico.",
+  "lettura": "I poveri mangiavano pani di ségale, orzo, miglio o panìco.",
+  "parole": [
+   [
+    "segale",
+    "ségale"
+   ],
+   [
+    "panico",
+    "panìco"
+   ]
+  ]
+ },
+ {
+  "chiave": "a02-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Le macchine si chiamavano mangano, petriera e briccola.",
+  "lettura": "Le macchine si chiamavano mangano, petriera e briccola.",
+  "parole": [
+   [
+    "mangano",
+    "màngano"
+   ],
+   [
+    "briccola",
+    "brìccola"
+   ]
+  ]
+ },
+ {
+  "chiave": "a02-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Le macchine si chiamavano mangano, petriera e briccola.",
+  "lettura": "Le macchine si chiamavano màngano, petriera e brìccola.",
+  "parole": [
+   [
+    "mangano",
+    "màngano"
+   ],
+   [
+    "briccola",
+    "brìccola"
+   ]
+  ]
+ },
+ {
+  "chiave": "a03-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Il mercante teneva il fondaco, pagava l'estimo e mangiava il companatico.",
+  "lettura": "Il mercante teneva il fondaco, pagava l'estimo e mangiava il companatico.",
+  "parole": [
+   [
+    "fondaco",
+    "fòndaco"
+   ],
+   [
+    "estimo",
+    "èstimo"
+   ],
+   [
+    "companatico",
+    "companàtico"
+   ]
+  ]
+ },
+ {
+  "chiave": "a03-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Il mercante teneva il fondaco, pagava l'estimo e mangiava il companatico.",
+  "lettura": "Il mercante teneva il fòndaco, pagava l'èstimo e mangiava il companàtico.",
+  "parole": [
+   [
+    "fondaco",
+    "fòndaco"
+   ],
+   [
+    "estimo",
+    "èstimo"
+   ],
+   [
+    "companatico",
+    "companàtico"
+   ]
+  ]
+ },
+ {
+  "chiave": "a04-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Nei boschi c'erano il leccio, la sughera e il castagno.",
+  "lettura": "Nei boschi c'erano il leccio, la sughera e il castagno.",
+  "parole": [
+   [
+    "sughera",
+    "sùghera"
+   ]
+  ]
+ },
+ {
+  "chiave": "a04-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Nei boschi c'erano il leccio, la sughera e il castagno.",
+  "lettura": "Nei boschi c'erano il leccio, la sùghera e il castagno.",
+  "parole": [
+   [
+    "sughera",
+    "sùghera"
+   ]
+  ]
+ },
+ {
+  "chiave": "a05-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I fabbri usavano mantici, martelli e incudini.",
+  "lettura": "I fabbri usavano mantici, martelli e incudini.",
+  "parole": [
+   [
+    "mantici",
+    "màntici"
+   ],
+   [
+    "incudini",
+    "incùdini"
+   ]
+  ]
+ },
+ {
+  "chiave": "a05-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I fabbri usavano mantici, martelli e incudini.",
+  "lettura": "I fabbri usavano màntici, martelli e incùdini.",
+  "parole": [
+   [
+    "mantici",
+    "màntici"
+   ],
+   [
+    "incudini",
+    "incùdini"
+   ]
+  ]
+ },
+ {
+  "chiave": "a06-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Giovanni da Procida passò da Lucera e da Fiesole.",
+  "lettura": "Giovanni da Procida passò da Lucera e da Fiesole.",
+  "parole": [
+   [
+    "Procida",
+    "Pròcida"
+   ],
+   [
+    "Lucera",
+    "Lùcera"
+   ],
+   [
+    "Fiesole",
+    "Fièsole"
+   ]
+  ]
+ },
+ {
+  "chiave": "a06-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Giovanni da Procida passò da Lucera e da Fiesole.",
+  "lettura": "Giovanni da Pròcida passò da Lùcera e da Fièsole.",
+  "parole": [
+   [
+    "Procida",
+    "Pròcida"
+   ],
+   [
+    "Lucera",
+    "Lùcera"
+   ],
+   [
+    "Fiesole",
+    "Fièsole"
+   ]
+  ]
+ },
+ {
+  "chiave": "a07-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Le navi andavano da Trapani a Marsala, poi a Cagliari e a Tunisi.",
+  "lettura": "Le navi andavano da Trapani a Marsala, poi a Cagliari e a Tunisi.",
+  "parole": [
+   [
+    "Trapani",
+    "Tràpani"
+   ],
+   [
+    "Marsala",
+    "Màrsala"
+   ],
+   [
+    "Cagliari",
+    "Càgliari"
+   ],
+   [
+    "Tunisi",
+    "Tùnisi"
+   ]
+  ]
+ },
+ {
+  "chiave": "a07-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Le navi andavano da Trapani a Marsala, poi a Cagliari e a Tunisi.",
+  "lettura": "Le navi andavano da Tràpani a Màrsala, poi a Càgliari e a Tùnisi.",
+  "parole": [
+   [
+    "Trapani",
+    "Tràpani"
+   ],
+   [
+    "Marsala",
+    "Màrsala"
+   ],
+   [
+    "Cagliari",
+    "Càgliari"
+   ],
+   [
+    "Tunisi",
+    "Tùnisi"
+   ]
+  ]
+ },
+ {
+  "chiave": "a08-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Dopo Montaperti, a Empoli, Farinata ricordò il fiume Arbia.",
+  "lettura": "Dopo Montaperti, a Empoli, Farinata ricordò il fiume Arbia.",
+  "parole": [
+   [
+    "Montaperti",
+    "Montàperti"
+   ],
+   [
+    "Empoli",
+    "Èmpoli"
+   ],
+   [
+    "Arbia",
+    "Àrbia"
+   ]
+  ]
+ },
+ {
+  "chiave": "a08-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Dopo Montaperti, a Empoli, Farinata ricordò il fiume Arbia.",
+  "lettura": "Dopo Montàperti, a Èmpoli, Farinata ricordò il fiume Àrbia.",
+  "parole": [
+   [
+    "Montaperti",
+    "Montàperti"
+   ],
+   [
+    "Empoli",
+    "Èmpoli"
+   ],
+   [
+    "Arbia",
+    "Àrbia"
+   ]
+  ]
+ },
+ {
+  "chiave": "a09-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Il Cassaro di Palermo porta verso il castello di Caccamo.",
+  "lettura": "Il Cassaro di Palermo porta verso il castello di Caccamo.",
+  "parole": [
+   [
+    "Cassaro",
+    "Càssaro"
+   ],
+   [
+    "Caccamo",
+    "Càccamo"
+   ]
+  ]
+ },
+ {
+  "chiave": "a09-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Il Cassaro di Palermo porta verso il castello di Caccamo.",
+  "lettura": "Il Càssaro di Palermo porta verso il castello di Càccamo.",
+  "parole": [
+   [
+    "Cassaro",
+    "Càssaro"
+   ],
+   [
+    "Caccamo",
+    "Càccamo"
+   ]
+  ]
+ },
+ {
+  "chiave": "a10-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I conti Guidi di Dovadola conoscevano l'Editto di Rotari.",
+  "lettura": "I conti Guidi di Dovadola conoscevano l'Editto di Rotari.",
+  "parole": [
+   [
+    "Dovadola",
+    "Dòvadola"
+   ],
+   [
+    "Rotari",
+    "Ròtari"
+   ]
+  ]
+ },
+ {
+  "chiave": "a10-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I conti Guidi di Dovadola conoscevano l'Editto di Rotari.",
+  "lettura": "I conti Guidi di Dòvadola conoscevano l'Editto di Ròtari.",
+  "parole": [
+   [
+    "Dovadola",
+    "Dòvadola"
+   ],
+   [
+    "Rotari",
+    "Ròtari"
+   ]
+  ]
+ },
+ {
+  "chiave": "a11-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Iacopo de' Pazzi, Pietro Tiepolo ed Enrico Dandolo.",
+  "lettura": "Iacopo de' Pazzi, Pietro Tiepolo ed Enrico Dandolo.",
+  "parole": [
+   [
+    "Iacopo",
+    "Iàcopo"
+   ],
+   [
+    "Tiepolo",
+    "Tièpolo"
+   ],
+   [
+    "Dandolo",
+    "Dàndolo"
+   ]
+  ]
+ },
+ {
+  "chiave": "a11-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Iacopo de' Pazzi, Pietro Tiepolo ed Enrico Dandolo.",
+  "lettura": "Iàcopo de' Pazzi, Pietro Tièpolo ed Enrico Dàndolo.",
+  "parole": [
+   [
+    "Iacopo",
+    "Iàcopo"
+   ],
+   [
+    "Tiepolo",
+    "Tièpolo"
+   ],
+   [
+    "Dandolo",
+    "Dàndolo"
+   ]
+  ]
+ },
+ {
+  "chiave": "a12-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Filippo di Taranto, il conte di Eboli e la città di Capua.",
+  "lettura": "Filippo di Taranto, il conte di Eboli e la città di Capua.",
+  "parole": [
+   [
+    "Taranto",
+    "Tàranto"
+   ],
+   [
+    "Eboli",
+    "Èboli"
+   ],
+   [
+    "Capua",
+    "Càpua"
+   ]
+  ]
+ },
+ {
+  "chiave": "a12-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Filippo di Taranto, il conte di Eboli e la città di Capua.",
+  "lettura": "Filippo di Tàranto, il conte di Èboli e la città di Càpua.",
+  "parole": [
+   [
+    "Taranto",
+    "Tàranto"
+   ],
+   [
+    "Eboli",
+    "Èboli"
+   ],
+   [
+    "Capua",
+    "Càpua"
+   ]
+  ]
+ },
+ {
+  "chiave": "a13-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Partì da Brindisi e passò vicino a Marettimo e a Peretola.",
+  "lettura": "Partì da Brindisi e passò vicino a Marettimo e a Peretola.",
+  "parole": [
+   [
+    "Brindisi",
+    "Brìndisi"
+   ],
+   [
+    "Marettimo",
+    "Marèttimo"
+   ],
+   [
+    "Peretola",
+    "Perètola"
+   ]
+  ]
+ },
+ {
+  "chiave": "a13-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Partì da Brindisi e passò vicino a Marettimo e a Peretola.",
+  "lettura": "Partì da Brìndisi e passò vicino a Marèttimo e a Perètola.",
+  "parole": [
+   [
+    "Brindisi",
+    "Brìndisi"
+   ],
+   [
+    "Marettimo",
+    "Marèttimo"
+   ],
+   [
+    "Peretola",
+    "Perètola"
+   ]
+  ]
+ },
+ {
+  "chiave": "a14-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I due principi angioini pagavano la decima.",
+  "lettura": "I due principi angioini pagavano la decima.",
+  "parole": [
+   [
+    "principi",
+    "prìncipi"
+   ],
+   [
+    "decima",
+    "dècima"
+   ]
+  ]
+ },
+ {
+  "chiave": "a14-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "I due principi angioini pagavano la decima.",
+  "lettura": "I due prìncipi angioini pagavano la dècima.",
+  "parole": [
+   [
+    "principi",
+    "prìncipi"
+   ],
+   [
+    "decima",
+    "dècima"
+   ]
+  ]
+ },
+ {
+  "chiave": "a15-senza",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Pistoia, Legnano, Modena, Bergamo, Novara, Padova e Mantova.",
+  "lettura": "Pistoia, Legnano, Modena, Bergamo, Novara, Padova e Mantova.",
+  "parole": [
+   [
+    "Pistoia",
+    "Pistóia"
+   ],
+   [
+    "Legnano",
+    "Legnàno"
+   ],
+   [
+    "Modena",
+    "Mòdena"
+   ],
+   [
+    "Bergamo",
+    "Bèrgamo"
+   ],
+   [
+    "Novara",
+    "Nòvara"
+   ],
+   [
+    "Padova",
+    "Pàdova"
+   ],
+   [
+    "Mantova",
+    "Màntova"
+   ]
+  ]
+ },
+ {
+  "chiave": "a15-con",
+  "gruppo": "accenti",
+  "dove": "prova-accenti",
+  "testo": "Pistoia, Legnano, Modena, Bergamo, Novara, Padova e Mantova.",
+  "lettura": "Pistóia, Legnàno, Mòdena, Bèrgamo, Nòvara, Pàdova e Màntova.",
+  "parole": [
+   [
+    "Pistoia",
+    "Pistóia"
+   ],
+   [
+    "Legnano",
+    "Legnàno"
+   ],
+   [
+    "Modena",
+    "Mòdena"
+   ],
+   [
+    "Bergamo",
+    "Bèrgamo"
+   ],
+   [
+    "Novara",
+    "Nòvara"
+   ],
+   [
+    "Padova",
+    "Pàdova"
+   ],
+   [
+    "Mantova",
+    "Màntova"
+   ]
+  ]
+ }
+]

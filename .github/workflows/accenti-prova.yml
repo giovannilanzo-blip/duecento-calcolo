@@ -1,0 +1,47 @@
+name: accenti-prova
+# Prova degli accenti tonici: 15 frasi con parole a rischio, senza e con l'accento grafico, lette da Nicola (Kokoro,
+# con i fonemi e gli accenti tonici calcolati da Kokoro) e da F07 (Chatterbox).
+on:
+  workflow_dispatch:
+jobs:
+  nicola:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: {HF_HUB_DISABLE_XET: "1", FONEMI: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9" soundfile
+      - run: python voce/nicola.py voce/accenti/accenti-prova.json out/nicola 1 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: accenti-nicola, path: out, if-no-files-found: warn}
+  f07:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        lotto: [1, 2, 3, 4]
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
+          pip install -q faster-whisper
+      - run: /tmp/cb/bin/python voce/f07.py voce/accenti/accenti-prova.json out/f07 ${{ matrix.lotto }} 4
+      - if: always()
+        run: python voce/viktor_verifica.py voce/accenti/accenti-prova.json out/f07 small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "accenti-f07-${{ matrix.lotto }}", path: out, if-no-files-found: warn}
