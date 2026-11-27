@@ -1,0 +1,60 @@
+name: rese-palermo
+# Volo su Palermo (Duecento): la scena si ricostruisce dagli script del ramo rese-palermo e si rende con Eevee
+# in software (Mesa). Ogni lavoro della matrice rende una parte dei fotogrammi e li carica come artefatto.
+on:
+  workflow_dispatch:
+    inputs:
+      primo: {description: "primo fotogramma", default: "0"}
+      ultimo: {description: "ultimo fotogramma", default: "332"}
+      parti: {description: "numero di parti (JSON)", default: "[0,1,2,3,4,5,6,7]"}
+      elenco: {description: "fotogrammi singoli per una prova (vuoto = intervallo)", default: ""}
+      campioni: {description: "campioni Eevee", default: "8"}
+      ombre: {description: "scala della risoluzione delle ombre", default: "0.5"}
+jobs:
+  rendi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: ${{ fromJSON(inputs.parti) }}
+    env: {PYTHONUNBUFFERED: "1"}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: rese-palermo}
+      - name: Librerie grafiche (Mesa) e Xvfb
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libegl1 libgl1 libgl1-mesa-dri libglx-mesa0 libxi6 libxkbcommon0 libxkbcommon-x11-0 libsm6 libxrender1 libxxf86vm1 libxfixes3 libxrandr2 libxinerama1 libxcursor1 > /dev/null
+      - uses: actions/cache@v4
+        with: {path: blender, key: blender-4.5.16-linux}
+      - name: Blender 4.5.16
+        run: |
+          if [ ! -x blender/blender ]; then
+            curl -sL https://download.blender.org/release/Blender4.5/blender-4.5.16-linux-x64.tar.xz | tar xJ
+            mv blender-4.5.16-linux-x64 blender
+          fi
+          blender/blender --version | head -1
+      - name: Costruzione della scena
+        run: |
+          xvfb-run -a -s "-screen 0 1280x720x24" blender/blender -b -t 4 --factory-startup -P palermo/scripts/scena4.py -- --build 2>&1 | grep -E "SALVATO|terreno|citt|conca|CAM|MEMORIA|Error|Traceback|rror:" || true
+          ls -la palermo/palermo4.blend
+      - name: Resa
+        run: |
+          P=${{ matrix.parte }}; N=$(echo '${{ inputs.parti }}' | python3 -c "import json,sys; print(len(json.load(sys.stdin)))")
+          A=${{ inputs.primo }}; B=${{ inputs.ultimo }}; T=$((B - A + 1))
+          a=$((A + P * T / N)); b=$((A + (P + 1) * T / N - 1))
+          mkdir -p out
+          export PA_SAMPLES=${{ inputs.campioni }} PA_SHRES=${{ inputs.ombre }}
+          if [ -n "${{ inputs.elenco }}" ]; then
+            [ "$P" = "0" ] || exit 0
+            ARG="--frames ${{ inputs.elenco }}"
+          else
+            ARG="--render $a $b"
+          fi
+          echo "parte $P: $ARG"
+          time xvfb-run -a -s "-screen 0 1280x720x24" blender/blender -b -t 4 palermo/palermo4.blend -P palermo/scripts/scena4.py -- $ARG --out $PWD/out 2>&1 | grep -E "RESO|RESI|Fra:|Error|Traceback|rror:|EEVEE|OpenGL|GPU" | grep -v "Fra:.*Sample" | tail -60
+          ls out | wc -l
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "palermo-${{ matrix.parte }}", path: out, retention-days: 5, compression-level: 0}
