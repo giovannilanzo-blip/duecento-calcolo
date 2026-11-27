@@ -1,0 +1,132 @@
+[
+ {
+  "chiave": "c01-senza",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "La battaglia della Falconaria si combatté tra Trapani e Marsala.",
+  "lettura": "La battaglia della Falconaria si combatté tra Trapani e Marsala.",
+  "parole": [
+   [
+    "Marsala",
+    "Marsàla"
+   ]
+  ]
+ },
+ {
+  "chiave": "c01-con",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "La battaglia della Falconaria si combatté tra Trapani e Marsala.",
+  "lettura": "La battaglia della Falconaria si combatté tra Trapani e Marsàla.",
+  "parole": [
+   [
+    "Marsala",
+    "Marsàla"
+   ]
+  ]
+ },
+ {
+  "chiave": "c02-senza",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Gli arcieri saraceni di Federico venivano da Lucera.",
+  "lettura": "Gli arcieri saraceni di Federico venivano da Lucera.",
+  "parole": [
+   [
+    "Lucera",
+    "Lucèra"
+   ]
+  ]
+ },
+ {
+  "chiave": "c02-con",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Gli arcieri saraceni di Federico venivano da Lucera.",
+  "lettura": "Gli arcieri saraceni di Federico venivano da Lucèra.",
+  "parole": [
+   [
+    "Lucera",
+    "Lucèra"
+   ]
+  ]
+ },
+ {
+  "chiave": "c03-senza",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Nel milleduecentosessanta i senesi vinsero a Montaperti.",
+  "lettura": "Nel milleduecentosessanta i senesi vinsero a Montaperti.",
+  "parole": [
+   [
+    "Montaperti",
+    "Montapèrti"
+   ]
+  ]
+ },
+ {
+  "chiave": "c03-con",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Nel milleduecentosessanta i senesi vinsero a Montaperti.",
+  "lettura": "Nel milleduecentosessanta i senesi vinsero a Montapèrti.",
+  "parole": [
+   [
+    "Montaperti",
+    "Montapèrti"
+   ]
+  ]
+ },
+ {
+  "chiave": "c04-senza",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Guido Guerra era dei conti Guidi di Dovadola.",
+  "lettura": "Guido Guerra era dei conti Guidi di Dovadola.",
+  "parole": [
+   [
+    "Dovadola",
+    "Dovàdola"
+   ]
+  ]
+ },
+ {
+  "chiave": "c04-con",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "Guido Guerra era dei conti Guidi di Dovadola.",
+  "lettura": "Guido Guerra era dei conti Guidi di Dovàdola.",
+  "parole": [
+   [
+    "Dovadola",
+    "Dovàdola"
+   ]
+  ]
+ },
+ {
+  "chiave": "c05-senza",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "L'Editto di Rotari fu scritto a Pavia.",
+  "lettura": "L'Editto di Rotari fu scritto a Pavia.",
+  "parole": [
+   [
+    "Rotari",
+    "Rotàri"
+   ]
+  ]
+ },
+ {
+  "chiave": "c05-con",
+  "gruppo": "accenti",
+  "dove": "correzione",
+  "testo": "L'Editto di Rotari fu scritto a Pavia.",
+  "lettura": "L'Editto di Rotàri fu scritto a Pavia.",
+  "parole": [
+   [
+    "Rotari",
+    "Rotàri"
+   ]
+  ]
+ }
+]

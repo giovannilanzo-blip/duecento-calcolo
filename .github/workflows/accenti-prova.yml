@@ -3,6 +3,16 @@ name: accenti-prova
 # con i fonemi e gli accenti tonici calcolati da Kokoro) e da F07 (Chatterbox).
 on:
   workflow_dispatch:
+    inputs:
+      elenco:
+        description: "File delle frasi di prova"
+        default: "voce/accenti/accenti-prova.json"
+      lotti_f07:
+        description: "Lotti di Chatterbox (elenco JSON) e numero dei lotti"
+        default: "[1,2,3,4]"
+      parti_f07:
+        description: "Numero dei lotti di Chatterbox"
+        default: "4"
 jobs:
   nicola:
     runs-on: ubuntu-latest
@@ -17,7 +27,7 @@ jobs:
           sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
           pip install -q torch --index-url https://download.pytorch.org/whl/cpu
           pip install -q "kokoro>=0.9" soundfile
-      - run: python voce/nicola.py voce/accenti/accenti-prova.json out/nicola 1 1
+      - run: python voce/nicola.py ${{ inputs.elenco }} out/nicola 1 1
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: accenti-nicola, path: out, if-no-files-found: warn}
@@ -27,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        lotto: [1, 2, 3, 4]
+        lotto: ${{ fromJSON(inputs.lotti_f07) }}
     env: {HF_HUB_DISABLE_XET: "1"}
     steps:
       - uses: actions/checkout@v4
@@ -39,9 +49,9 @@ jobs:
           python -m venv /tmp/cb
           /tmp/cb/bin/pip install -q chatterbox-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
           pip install -q faster-whisper
-      - run: /tmp/cb/bin/python voce/f07.py voce/accenti/accenti-prova.json out/f07 ${{ matrix.lotto }} 4
+      - run: /tmp/cb/bin/python voce/f07.py ${{ inputs.elenco }} out/f07 ${{ matrix.lotto }} ${{ inputs.parti_f07 }}
       - if: always()
-        run: python voce/viktor_verifica.py voce/accenti/accenti-prova.json out/f07 small
+        run: python voce/viktor_verifica.py ${{ inputs.elenco }} out/f07 small
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: "accenti-f07-${{ matrix.lotto }}", path: out, if-no-files-found: warn}

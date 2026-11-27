@@ -82,21 +82,18 @@ const NOMI = [
 ];
 // opere con canti: «Inferno X» → «Inferno, canto decimo»
 const OPERE = 'Inferno|Purgatorio|Paradiso';
-/* Accenti tonici nel testo letto (prova del 27/11/2026): solo parole sdrucciole o lette male dalle voci.
-   Kokoro, senza accento, legge «segàle», «pànico» (il cereale), «Lucèra», «Marsàla», «Montapèrti», «Dovàdola»;
-   con l'accento grafico rispetta sempre l'accento tonico (fonemi controllati). Chatterbox non peggiora con l'accento
-   grafico secondo la trascrizione di controllo; l'accento va comunque verificato all'ascolto.
-   Forma: [parola o espressione, forma accentata]. Le espressioni servono per gli omografi (principi, panico). */
+/* Accenti tonici nel testo letto, ricontrollati una per una il 27/11/2026 (fonti in ACCENTI.txt): si accentano solo
+   parole sdrucciole verificate su Treccani o sulla trascrizione AFI di Wikipedia, oppure parole che Kokoro legge male.
+   Nel dubbio la parola resta senza accento. Tolte dopo la correzione di Giovanni: Màrsala (è Marsàla), Lùcera (Lucèra),
+   Montàperti (Montapèrti), Dòvadola (Dovàdola); Kokoro le legge già bene senza accento. Rotari si legge Rotàri:
+   Kokoro senza accento legge «Ròtari», quindi qui riceve l'accento corretto.
+   Forma: [parola o espressione, forma accentata]; le espressioni servono per gli omografi (principi). */
 const ACCENTI = [
-  ['miglio o panico', 'miglio o panìco'], ['principi angioini', 'prìncipi angioini'], ['principi opposti', 'princìpi opposti'],
-  ['segale', 'ségale'], ['mangano', 'màngano'], ['briccola', 'brìccola'], ['fondaco', 'fòndaco'], ['estimo', 'èstimo'],
-  ['companatico', 'companàtico'], ['sughera', 'sùghera'], ['mantici', 'màntici'], ['incudini', 'incùdini'], ['argani', 'àrgani'],
-  ['decima', 'dècima'], ['Procida', 'Pròcida'], ['Lucera', 'Lùcera'], ['Fiesole', 'Fièsole'], ['Trapani', 'Tràpani'],
-  ['Marsala', 'Màrsala'], ['Cagliari', 'Càgliari'], ['Tunisi', 'Tùnisi'], ['Montaperti', 'Montàperti'], ['Empoli', 'Èmpoli'],
-  ['Arbia', 'Àrbia'], ['Cassaro', 'Càssaro'], ['Caccamo', 'Càccamo'], ['Dovadola', 'Dòvadola'], ['Rotari', 'Ròtari'],
-  ['Iacopo', 'Iàcopo'], ['Tiepolo', 'Tièpolo'], ['Dandolo', 'Dàndolo'], ['Taranto', 'Tàranto'], ['Eboli', 'Èboli'],
-  ['Capua', 'Càpua'], ['Brindisi', 'Brìndisi'], ['Marettimo', 'Marèttimo'], ['Peretola', 'Perètola'], ['Modena', 'Mòdena'],
-  ['Bergamo', 'Bèrgamo'], ['Padova', 'Pàdova'], ['Mantova', 'Màntova'], ['Sambuca', 'Sàmbuca'], ['Tiepido', 'Tièpido'], ['Panaro', 'Pànaro']
+  ['principi angioini', 'prìncipi angioini'], ['principi opposti', 'princìpi opposti'],
+  ['segale', 'ségale'], ['mangano', 'màngano'], ['fondaco', 'fóndaco'], ['estimo', 'èstimo'], ['companatico', 'companàtico'],
+  ['sughera', 'sùghera'], ['mantici', 'màntici'], ['incudini', 'incùdini'], ['argani', 'àrgani'], ['decima', 'dècima'],
+  ['Procida', 'Pròcida'], ['Fiesole', 'Fièsole'], ['Cassaro', 'Càssaro'], ['Caccamo', 'Càccamo'], ['Eboli', 'Èboli'],
+  ['Brindisi', 'Brìndisi'], ['Marettimo', 'Marèttimo'], ['Tiepido', 'Tièpido'], ['Rotari', 'Rotàri']
 ];
 
 // opz: { numeri: 'attaccato' | 'separato' | 'misto', cifre: true per lasciare cifre e numeri romani al modello }
