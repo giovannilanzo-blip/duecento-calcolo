@@ -46,13 +46,17 @@ for f in sorted(glob.glob(os.path.join(sys.argv[1], "sigla-*.wav"))):
     if clap is not None:
         model, proc = clap
         etichette = [f"the sound of {x}" for x in ANTICHI + MODERNI]
+        with torch.no_grad():
+            ti = proc.tokenizer(etichette, return_tensors="pt", padding=True)
+            te = model.get_text_features(**ti); te = te / te.norm(dim=-1, keepdim=True)
         y48, _ = librosa.load(f, sr=48000, mono=True)
         fin = []
         for a in range(0, int(len(y48) / 48000) - 4, 10):
             seg = y48[a * 48000:(a + 10) * 48000]
-            inp = proc(text=etichette, audios=[seg], sampling_rate=48000, return_tensors="pt", padding=True)
+            ai = proc.feature_extractor(seg, sampling_rate=48000, return_tensors="pt")
             with torch.no_grad():
-                p = model(**inp).logits_per_audio.softmax(-1)[0].numpy()
+                ae = model.get_audio_features(**ai); ae = ae / ae.norm(dim=-1, keepdim=True)
+                p = (100.0 * ae @ te.T).softmax(-1)[0].numpy()
             top = np.argsort(-p)[:4]
             mod = sum(float(p[len(ANTICHI) + k]) for k in range(len(MODERNI)))
             fin.append({"da_s": a, "top": [(ANTICHI + MODERNI)[k] + f" {p[k]:.2f}" for k in top], "quota_moderni": round(mod, 2)})

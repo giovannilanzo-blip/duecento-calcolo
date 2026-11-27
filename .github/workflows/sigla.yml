@@ -8,8 +8,12 @@ on:
       lm:
         description: "Modello linguistico di ACE-Step (0.6B oppure no)"
         default: "0.6B"
+      sorgente:
+        description: "Numero di un run gia' concluso da rianalizzare (vuoto significa generare)"
+        default: ""
 jobs:
   genera:
+    if: inputs.sorgente == ''
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -45,10 +49,11 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions: {actions: read, contents: read}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
-        with: {path: out, pattern: "sigla-*", merge-multiple: true}
+        with: {path: out, pattern: "sigla-*", merge-multiple: true, run-id: "${{ inputs.sorgente || github.run_id }}", github-token: "${{ github.token }}"}
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - name: Installazione
