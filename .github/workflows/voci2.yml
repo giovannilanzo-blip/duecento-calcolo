@@ -1,0 +1,113 @@
+name: campionario-voci-2
+on:
+  workflow_dispatch:
+    inputs:
+      testo:
+        description: "Frase del campionario"
+        default: "Nel milleduecentocinquantasei, nella valle del Serchio, i cavalieri di Lucca e di Firenze caricano la fanteria pisana schierata dietro i pavesi. È la battaglia di Ponte a Serchio, e i Pisani ne escono sconfitti. Ma la guerra tra le città toscane è appena cominciata!"
+      motori:
+        description: "Motori della prima fase"
+        default: '["qwen-M1-narratore_caldo", "qwen-M2-giovane_vivace", "qwen-M3-documentario", "qwen-F1-narratrice_calda", "qwen-F2-insegnante_dolce", "qwen-F3-documentario", "kokoro", "orpheus"]'
+      cloni:
+        description: "Motori con riferimento sintetico"
+        default: '["chatterbox", "f5"]'
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        motore: ${{ fromJSON(inputs.motori) }}
+    env: {TESTO: "${{ inputs.testo }}", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Spazio su disco e memoria virtuale
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo swapoff -a; sudo fallocate -l 8G /mnt/sw && sudo chmod 600 /mnt/sw && sudo mkswap /mnt/sw && sudo swapon /mnt/sw
+          nproc; free -h; df -h / /mnt
+      - name: Installazione
+        run: |
+          case "${{ matrix.motore }}" in
+            kokoro) sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng; pip install -q torch --index-url https://download.pytorch.org/whl/cpu; pip install -q "kokoro>=0.9" soundfile ;;
+            qwen-*) pip install -q torch torchaudio --index-url https://download.pytorch.org/whl/cpu; pip install -q qwen-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu ;;
+            orpheus)
+              pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+              pip install -q snac soundfile numpy --extra-index-url https://download.pytorch.org/whl/cpu
+              CMAKE_ARGS="-DGGML_NATIVE=ON" pip install -q llama-cpp-python
+              curl -sL -o orpheus.gguf https://huggingface.co/lex-au/Orpheus-3b-Italian_Spanish-FT-Q8_0.gguf/resolve/main/Orpheus-3b-Italian_Spanish-FT-Q8_0.gguf
+              ls -la orpheus.gguf ;;
+          esac
+      - name: Generazione
+        run: python voce/campione2.py ${{ matrix.motore }} out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "c2-${{ matrix.motore }}", path: out, if-no-files-found: warn}
+  cloni:
+    needs: gen
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        motore: ${{ fromJSON(inputs.cloni) }}
+    env: {TESTO: "${{ inputs.testo }}", HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {pattern: "c2-qwen-*1-*", path: rif, merge-multiple: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Chatterbox multilingue
+        if: matrix.motore == 'chatterbox'
+        run: |
+          ls rif
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts --extra-index-url https://download.pytorch.org/whl/cpu
+          /tmp/cb/bin/python voce/cloni2.py rif out
+      - name: F5-TTS italiano
+        if: matrix.motore == 'f5'
+        run: |
+          ls rif
+          pip install -q torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+          pip install -q f5-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
+          curl -sL -o f5it.safetensors https://huggingface.co/alien79/F5-TTS-italian/resolve/main/model_159600.safetensors
+          curl -sL -o vocab.txt https://huggingface.co/alien79/F5-TTS-italian/resolve/main/vocab.txt
+          mkdir -p out
+          for s in M F; do
+            t0=$(date +%s)
+            f5-tts_infer-cli --model F5TTS_Base --ckpt_file f5it.safetensors --vocab_file vocab.txt \
+              --ref_audio rif/rif-$s.wav --ref_text "$(cat rif/rif-$s.txt)" --gen_text "$TESTO" \
+              --output_dir out --output_file f5it-rif_qwen3vd_$s.wav
+            echo "f5it-rif_qwen3vd_$s secondi $(( $(date +%s) - t0 ))" | tee -a out/tempi-f5.txt
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "c2x-${{ matrix.motore }}", path: out, if-no-files-found: warn}
+  verifica:
+    needs: [gen, cloni]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {pattern: "c2*", path: tutti}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Banda e fruscio
+        run: |
+          pip install -q numpy faster-whisper
+          python voce/banda.py tutti
+      - name: Trascrizione Whisper
+        run: WHISPER=medium python voce/trascrivi.py tutti
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verifica-campionario-2
+          path: |
+            tutti/*.json
+            tutti/*.txt

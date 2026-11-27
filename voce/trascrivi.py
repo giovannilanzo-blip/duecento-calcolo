@@ -1,8 +1,8 @@
 # Trascrizione di controllo con Whisper small: misura quanto la pronuncia italiana resta comprensibile.
-import glob, sys
+import glob, os, sys
 from faster_whisper import WhisperModel
 cartella = sys.argv[1]
-m = WhisperModel("small", device="cpu", compute_type="int8")
+m = WhisperModel(os.environ.get("WHISPER", "small"), device="cpu", compute_type="int8")
 with open(f"{cartella}/trascrizioni.txt", "w", encoding="utf-8") as out:
     for f in sorted(glob.glob(f"{cartella}/**/*.wav", recursive=True)):
         seg, _ = m.transcribe(f, language="it", beam_size=5)
