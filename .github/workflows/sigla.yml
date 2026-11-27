@@ -1,0 +1,62 @@
+name: sigla-acestep
+on:
+  workflow_dispatch:
+    inputs:
+      varianti:
+        description: "Varianti da generare, in JSON"
+        default: '["A","B","C"]'
+      lm:
+        description: "Modello linguistico di ACE-Step (0.6B oppure no)"
+        default: "0.6B"
+jobs:
+  genera:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        variante: ${{ fromJSON(inputs.varianti) }}
+    env: {HF_HUB_DISABLE_XET: "1", PYTHONUNBUFFERED: "1", ACESTEP_DEVICE: "cpu", ACESTEP_LM_BACKEND: "pt"}
+    steps:
+      - name: Spazio su disco e memoria di scambio
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo swapoff -a; sudo rm -f /mnt/swapfile; sudo fallocate -l 10G /mnt/swap2 && sudo chmod 600 /mnt/swap2 && sudo mkswap /mnt/swap2 && sudo swapon /mnt/swap2
+          sudo mkdir -p /mnt/ace && sudo chown $USER /mnt/ace; free -h; df -h / /mnt; nproc
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione di ACE-Step 1.5
+        run: |
+          git clone --filter=blob:none https://github.com/ace-step/ACE-Step-1.5.git /mnt/ace
+          git -C /mnt/ace checkout ca1e85fe9430179831e6bc6be790c332190a3866
+          pip install -q torch==2.7.1 torchaudio==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "transformers>=4.51.0,<4.58.0" "diffusers>=0.37.0" scipy soundfile loguru einops "accelerate>=1.12.0" numba \
+            "vector-quantize-pytorch>=1.27.15" "torchao>=0.16.0,<0.17.0" toml diskcache matplotlib "peft>=0.18.0" pytorch-wavelets pywavelets \
+            "setuptools<72" huggingface_hub modelscope safetensors pyyaml tqdm python-dotenv xxhash typer-slim
+          python -c "import torch; print(torch.__version__, torch.get_num_threads())"
+      - name: Generazione
+        run: /usr/bin/time -v python sigla/gen_sigla.py /mnt/ace ${{ matrix.variante }} $GITHUB_WORKSPACE/out ${{ inputs.lm }} 2>&1 | grep -v "audio_code_" | tail -n 400
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "sigla-${{ matrix.variante }}", path: "out/sigla-*", if-no-files-found: warn}
+  analisi:
+    needs: genera
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {path: out, pattern: "sigla-*", merge-multiple: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          pip install -q torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "transformers>=4.51.0,<4.58.0" librosa soundfile
+      - name: Analisi
+        run: ls -la out; python sigla/analizza.py out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: analisi-sigla, path: out/analisi.json, if-no-files-found: warn}
