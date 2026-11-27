@@ -1,0 +1,79 @@
+name: rese-termini
+# Resa a blocchi del volo su Termini (video «Duecento») con Blender 4.5 ed EEVEE in software (Mesa llvmpipe sotto Xvfb).
+# La scena impacchettata sta sul ramo indicato (non su main); ogni lavoro rende un intervallo di fotogrammi e lo carica come artefatto.
+on:
+  workflow_dispatch:
+    inputs:
+      ramo:
+        description: "Ramo con la scena"
+        default: "rese-termini"
+      scena:
+        description: "File .blend nel ramo"
+        default: "termini/termini_c.blend"
+      inizio:
+        description: "Primo fotogramma"
+        default: "0"
+      fine:
+        description: "Ultimo fotogramma"
+        default: "865"
+      lavori:
+        description: "Numero di lavori in parallelo"
+        default: "12"
+jobs:
+  prepara:
+    runs-on: ubuntu-latest
+    outputs:
+      blocchi: ${{ steps.m.outputs.blocchi }}
+    steps:
+      - id: m
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, math
+          a, b, n = int("${{ inputs.inizio }}"), int("${{ inputs.fine }}"), int("${{ inputs.lavori }}")
+          tot = b - a + 1; k = math.ceil(tot / n)
+          bl = [{"i": i, "a": a + i * k, "b": min(b, a + (i + 1) * k - 1)} for i in range(n) if a + i * k <= b]
+          print("blocchi=" + json.dumps(bl))
+          EOF
+  rendi:
+    needs: prepara
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        blocco: ${{ fromJson(needs.prepara.outputs.blocchi) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ramo }}
+      - name: Librerie grafiche in software
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri libegl1 libegl-mesa0 libglx-mesa0 libxi6 libxkbcommon0 libxkbcommon-x11-0 libxrender1 libsm6 libxxf86vm1 libxfixes3 libxinerama1 libxcursor1 libxrandr2 libvulkan1 mesa-vulkan-drivers > /dev/null
+          nproc; free -h
+      - name: Cache di Blender
+        uses: actions/cache@v4
+        with:
+          path: blender
+          key: blender-4.5-linux-v1
+      - name: Blender 4.5 per Linux
+        run: |
+          if [ ! -x blender/blender ]; then
+            V=$(curl -s https://download.blender.org/release/Blender4.5/ | grep -o 'blender-4\.5\.[0-9]*-linux-x64\.tar\.xz' | sort -V | tail -1)
+            echo "versione: $V"
+            curl -sSL -o b.tar.xz "https://download.blender.org/release/Blender4.5/$V"
+            mkdir blender && tar -xf b.tar.xz -C blender --strip-components=1
+          fi
+          blender/blender --version | head -1
+      - name: Resa dei fotogrammi ${{ matrix.blocco.a }}-${{ matrix.blocco.b }}
+        run: |
+          mkdir -p out
+          export LIBGL_ALWAYS_SOFTWARE=1 GALLIUM_DRIVER=llvmpipe LP_NUM_THREADS=4
+          xvfb-run -a -s "-screen 0 1920x1080x24" blender/blender -b "${{ inputs.scena }}" -t 4 \
+            -o "$PWD/out/f_####" -F PNG -s ${{ matrix.blocco.a }} -e ${{ matrix.blocco.b }} -a 2>&1 | grep -vE "^Fra:|^$" | tail -60
+          ls out | wc -l
+      - uses: actions/upload-artifact@v4
+        with:
+          name: termini-${{ matrix.blocco.i }}
+          path: out/
+          retention-days: 3
