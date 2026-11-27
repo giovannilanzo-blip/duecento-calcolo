@@ -1,0 +1,250 @@
+[
+ {
+  "chiave": "d1-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa.",
+  "lettura": "Il ventinove maggio millecentosettantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa.",
+  "frasi": [
+   "Il ventinove maggio millecentosettantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa"
+  ]
+ },
+ {
+  "chiave": "d1-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa.",
+  "lettura": "Il ventinove maggio mille cento settantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa.",
+  "frasi": [
+   "Il ventinove maggio mille cento settantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa"
+  ]
+ },
+ {
+  "chiave": "d1-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa.",
+  "lettura": "Il ventinove maggio millecento settantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa.",
+  "frasi": [
+   "Il ventinove maggio millecento settantasei la Lega Lombarda sconfisse a Legnano l'imperatore Federico primo Barbarossa"
+  ]
+ },
+ {
+  "chiave": "d1-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa.",
+  "lettura": "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa.",
+  "frasi": [
+   "Il 29 maggio 1176 la Lega Lombarda sconfisse a Legnano l'imperatore Federico I Barbarossa"
+  ]
+ },
+ {
+  "chiave": "d2-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel 1289 Firenze vinse anche a Campaldino.",
+  "lettura": "Nel milleduecentocinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel milleduecentottantanove Firenze vinse anche a Campaldino.",
+  "frasi": [
+   "Nel milleduecentocinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio",
+   "nel milleduecentottantanove Firenze vinse anche a Campaldino"
+  ]
+ },
+ {
+  "chiave": "d2-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel 1289 Firenze vinse anche a Campaldino.",
+  "lettura": "Nel mille duecento cinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel mille duecento ottantanove Firenze vinse anche a Campaldino.",
+  "frasi": [
+   "Nel mille duecento cinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio",
+   "nel mille duecento ottantanove Firenze vinse anche a Campaldino"
+  ]
+ },
+ {
+  "chiave": "d2-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel 1289 Firenze vinse anche a Campaldino.",
+  "lettura": "Nel milleduecento cinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel milleduecento ottantanove Firenze vinse anche a Campaldino.",
+  "frasi": [
+   "Nel milleduecento cinquantasei i Lucchesi e i Fiorentini vinsero a Ponte a Serchio",
+   "nel milleduecento ottantanove Firenze vinse anche a Campaldino"
+  ]
+ },
+ {
+  "chiave": "d2-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel 1289 Firenze vinse anche a Campaldino.",
+  "lettura": "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio; nel 1289 Firenze vinse anche a Campaldino.",
+  "frasi": [
+   "Nel 1256 i Lucchesi e i Fiorentini vinsero a Ponte a Serchio",
+   "nel 1289 Firenze vinse anche a Campaldino"
+  ]
+ },
+ {
+  "chiave": "d3-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Enrico VII (1310-1313) scese in Italia per farsi incoronare imperatore a Roma.",
+  "lettura": "Enrico settimo, dal milletrecentodieci al milletrecentotredici, scese in Italia per farsi incoronare imperatore a Roma.",
+  "frasi": [
+   "Enrico settimo, dal milletrecentodieci al milletrecentotredici, scese in Italia per farsi incoronare imperatore a Roma"
+  ]
+ },
+ {
+  "chiave": "d3-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Enrico VII (1310-1313) scese in Italia per farsi incoronare imperatore a Roma.",
+  "lettura": "Enrico settimo, dal mille trecento dieci al mille trecento tredici, scese in Italia per farsi incoronare imperatore a Roma.",
+  "frasi": [
+   "Enrico settimo, dal mille trecento dieci al mille trecento tredici, scese in Italia per farsi incoronare imperatore a Roma"
+  ]
+ },
+ {
+  "chiave": "d3-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Enrico VII (1310-1313) scese in Italia per farsi incoronare imperatore a Roma.",
+  "lettura": "Enrico settimo, dal milletrecento dieci al milletrecento tredici, scese in Italia per farsi incoronare imperatore a Roma.",
+  "frasi": [
+   "Enrico settimo, dal milletrecento dieci al milletrecento tredici, scese in Italia per farsi incoronare imperatore a Roma"
+  ]
+ },
+ {
+  "chiave": "d3-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Enrico VII (1310-1313) scese in Italia per farsi incoronare imperatore a Roma.",
+  "lettura": "Enrico VII, 1310-1313, scese in Italia per farsi incoronare imperatore a Roma.",
+  "frasi": [
+   "Enrico VII, 1310-1313, scese in Italia per farsi incoronare imperatore a Roma"
+  ]
+ },
+ {
+  "chiave": "d4-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia.",
+  "lettura": "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia.",
+  "frasi": [
+   "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia"
+  ]
+ },
+ {
+  "chiave": "d4-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia.",
+  "lettura": "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia.",
+  "frasi": [
+   "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia"
+  ]
+ },
+ {
+  "chiave": "d4-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia.",
+  "lettura": "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia.",
+  "frasi": [
+   "Nel tredicesimo secolo Federico secondo fece costruire castelli in tutto il Regno di Sicilia"
+  ]
+ },
+ {
+  "chiave": "d4-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia.",
+  "lettura": "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia.",
+  "frasi": [
+   "Nel XIII secolo Federico II fece costruire castelli in tutto il Regno di Sicilia"
+  ]
+ },
+ {
+  "chiave": "d5-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII.",
+  "lettura": "La battaglia della Falconaria si combatté il primo dicembre milleduecentonovantanove, quando il papa era Bonifacio ottavo.",
+  "frasi": [
+   "La battaglia della Falconaria si combatté il primo dicembre milleduecentonovantanove, quando il papa era Bonifacio ottavo"
+  ]
+ },
+ {
+  "chiave": "d5-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII.",
+  "lettura": "La battaglia della Falconaria si combatté il primo dicembre mille duecento novantanove, quando il papa era Bonifacio ottavo.",
+  "frasi": [
+   "La battaglia della Falconaria si combatté il primo dicembre mille duecento novantanove, quando il papa era Bonifacio ottavo"
+  ]
+ },
+ {
+  "chiave": "d5-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII.",
+  "lettura": "La battaglia della Falconaria si combatté il primo dicembre milleduecento novantanove, quando il papa era Bonifacio ottavo.",
+  "frasi": [
+   "La battaglia della Falconaria si combatté il primo dicembre milleduecento novantanove, quando il papa era Bonifacio ottavo"
+  ]
+ },
+ {
+  "chiave": "d5-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII.",
+  "lettura": "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII.",
+  "frasi": [
+   "La battaglia della Falconaria si combatté il 1° dicembre 1299, quando il papa era Bonifacio VIII"
+  ]
+ },
+ {
+  "chiave": "d6-A-attaccato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti; tra XII e XIII secolo era una grande potenza del mare.",
+  "lettura": "Nel milleduecentosettantasette Pisa aveva forse quarantamila o cinquantamila abitanti; tra dodicesimo e tredicesimo secolo era una grande potenza del mare.",
+  "frasi": [
+   "Nel milleduecentosettantasette Pisa aveva forse quarantamila o cinquantamila abitanti",
+   "tra dodicesimo e tredicesimo secolo era una grande potenza del mare"
+  ]
+ },
+ {
+  "chiave": "d6-B-separato",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti; tra XII e XIII secolo era una grande potenza del mare.",
+  "lettura": "Nel mille duecento settantasette Pisa aveva forse quarantamila o cinquantamila abitanti; tra dodicesimo e tredicesimo secolo era una grande potenza del mare.",
+  "frasi": [
+   "Nel mille duecento settantasette Pisa aveva forse quarantamila o cinquantamila abitanti",
+   "tra dodicesimo e tredicesimo secolo era una grande potenza del mare"
+  ]
+ },
+ {
+  "chiave": "d6-C-misto",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti; tra XII e XIII secolo era una grande potenza del mare.",
+  "lettura": "Nel milleduecento settantasette Pisa aveva forse quarantamila o cinquantamila abitanti; tra dodicesimo e tredicesimo secolo era una grande potenza del mare.",
+  "frasi": [
+   "Nel milleduecento settantasette Pisa aveva forse quarantamila o cinquantamila abitanti",
+   "tra dodicesimo e tredicesimo secolo era una grande potenza del mare"
+  ]
+ },
+ {
+  "chiave": "d6-D-cifre",
+  "gruppo": "date",
+  "dove": "prova-date",
+  "testo": "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti; tra XII e XIII secolo era una grande potenza del mare.",
+  "lettura": "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti; tra XII e XIII secolo era una grande potenza del mare.",
+  "frasi": [
+   "Nel 1277 Pisa aveva forse 40.000 o 50.000 abitanti",
+   "tra XII e XIII secolo era una grande potenza del mare"
+  ]
+ }
+]

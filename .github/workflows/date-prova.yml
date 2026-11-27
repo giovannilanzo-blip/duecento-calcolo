@@ -1,0 +1,53 @@
+name: date-prova
+# Prova delle grafie delle date (attaccata, separata, mista, cifre lasciate al modello) con le due voci del gioco:
+# Kokoro im_nicola (maschile, Apache 2.0) e Chatterbox F07 (femminile, MIT, clone di una voce sintetica Qwen3).
+on:
+  workflow_dispatch:
+jobs:
+  nicola:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9" soundfile faster-whisper
+      - name: Sintesi
+        run: python voce/nicola.py voce/date/date-prova.json out/nicola 1 1
+      - name: Trascrizione di controllo
+        if: always()
+        run: python voce/viktor_verifica.py voce/date/date-prova.json out/nicola small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: date-nicola, path: out, if-no-files-found: warn}
+  f07:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        lotto: [1, 2, 3, 4]
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
+          pip install -q faster-whisper
+      - name: Sintesi
+        run: /tmp/cb/bin/python voce/f07.py voce/date/date-prova.json out/f07 ${{ matrix.lotto }} 4
+      - name: Trascrizione di controllo
+        if: always()
+        run: python voce/viktor_verifica.py voce/date/date-prova.json out/f07 small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "date-f07-${{ matrix.lotto }}", path: out, if-no-files-found: warn}

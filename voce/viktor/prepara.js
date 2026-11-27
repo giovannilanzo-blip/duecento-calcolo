@@ -24,13 +24,24 @@ function sotto1000(n) {
   if (Math.floor(r / 10) === 8 || r === 8) s = s.slice(0, -1);   // centottanta, milleduecentottantanove
   return s + sotto100(r);
 }
+/* Grafia dei numeri da mille in su (STILE.numeri), scelta per ciascuna voce con le prove sulle date:
+   attaccato  milleduecentocinquantasei
+   separato   mille duecento cinquantasei
+   misto      milleduecento cinquantasei */
+const STILE = { numeri: 'attaccato', cifre: false };
 function cardinale(n) {
   n = Math.floor(n);
   if (n < 1000) return sotto1000(n);
   if (n < 1000000) {
     const m = Math.floor(n / 1000), r = n % 1000;
     const s = m === 1 ? 'mille' : sotto1000(m) + 'mila';
-    return r ? s + sotto1000(r) : s;
+    if (!r) return s;
+    if (STILE.numeri === 'attaccato') return s + sotto1000(r);
+    const c = Math.floor(r / 100), d = r % 100;
+    const cento = c ? (c === 1 ? 'cento' : U[c] + 'cento') : '';
+    const resto = d ? finale(sotto100(d)) : '';
+    if (STILE.numeri === 'separato') return [s, cento, resto].filter(Boolean).join(' ');
+    return [s + cento, resto].filter(Boolean).join(' ');
   }
   const mi = Math.floor(n / 1000000), r = n % 1000000;
   const s = mi === 1 ? 'un milione' : cardinale(mi) + ' milioni';
@@ -72,13 +83,16 @@ const NOMI = [
 // opere con canti: «Inferno X» → «Inferno, canto decimo»
 const OPERE = 'Inferno|Purgatorio|Paradiso';
 
-function leggibile(t) {
+// opz: { numeri: 'attaccato' | 'separato' | 'misto', cifre: true per lasciare cifre e numeri romani al modello }
+function leggibile(t, opz) {
+  Object.assign(STILE, { numeri: 'attaccato', cifre: false }, opz || {});
   let s = ' ' + t + ' ';
   NOMI.forEach(([a, b]) => { s = s.replace(new RegExp('(?<![\\wÀ-ÿ])' + a + '(?![\\wÀ-ÿ])', 'g'), b); });
   // virgolette tolte (la frase citata resta), barre dei versi come pause
   s = s.replace(/[«»"“”]/g, '').replace(/\s\/\s/g, ', ');
   // articolo dantesco «'l» letto come «el» (Kokoro altrimenti legge la lettera «elle»); «'nnanellata» come «innanellata»
   s = s.replace(/(\s)['’]l(?=\s)/g, '$1el').replace(/(\s)['’]nn/g, '$1inn');
+  if (STILE.cifre) return s.replace(/\s*\(\s*/g, ', ').replace(/\s*\)\s*([.,;:!?])/g, '$1').replace(/\s*\)\s*/g, ', ').replace(/\s+/g, ' ').trim();
   // riferimenti danteschi
   s = s.replace(new RegExp('\\b(' + OPERE + ') ([IVXL]+), (\\d+)-(\\d+)', 'g'), (m, o, r, a, b) => o + ', canto ' + ordinale(romano(r)) + ', versi ' + numeroTesto(a) + ' e ' + numeroTesto(b));
   s = s.replace(new RegExp('\\b(' + OPERE + ') ([IVXL]+)\\b', 'g'), (m, o, r) => o + ', canto ' + ordinale(romano(r)));
@@ -103,7 +117,7 @@ function leggibile(t) {
   s = s.replace(/%/g, ' per cento');
   // parentesi come pause
   s = s.replace(/\s*\(\s*/g, ', ').replace(/\s*\)\s*([.,;:!?])/g, '$1').replace(/\s*\)\s*/g, ', ');
-  s = s.replace(/,\s*,/g, ',').replace(/,\s*([.;:!?])/g, '$1').replace(/^\s*,\s*/, '').replace(/\s+/g, ' ').trim();
+  s = s.replace(/\s+,/g, ',').replace(/,\s*,/g, ',').replace(/,\s*([.;:!?])/g, '$1').replace(/^\s*,\s*/, '').replace(/\s+/g, ' ').trim();
   return s;
 }
 
