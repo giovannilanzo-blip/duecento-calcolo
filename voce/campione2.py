@@ -31,9 +31,19 @@ if motore.startswith("qwen-"):
     torch.set_num_threads(os.cpu_count())
     m = Qwen3TTSModel.from_pretrained("Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign", device_map="cpu", dtype=torch.bfloat16)
     k = motore[5:]; d = QWEN[k]
-    for seme in [1256, 1176]:
+    import signal
+    def scaduto(*_):
+        raise TimeoutError("generazione troppo lunga")
+    signal.signal(signal.SIGALRM, scaduto)
+    for seme in [int(x) for x in os.environ.get("SEMI", "1256,1176").split(",")]:
         torch.manual_seed(seme); t0 = time.time()
-        wavs, sr = m.generate_voice_design(text=TESTO, language="Italian", instruct=d)
+        signal.alarm(int(os.environ.get("LIMITE", "600")))
+        try:
+            wavs, sr = m.generate_voice_design(text=TESTO, language="Italian", instruct=d)
+        except TimeoutError as ex:
+            print("seme", seme, "scartato:", ex, flush=True); continue
+        finally:
+            signal.alarm(0)
         salva(f"qwen3vd-{k}-s{seme}", wavs[0], sr, t0)
     if k in ("M1-narratore_caldo", "F1-narratrice_calda"):
         # Riferimento sintetico per i modelli che clonano una voce (F5-TTS, Chatterbox).

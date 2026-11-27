@@ -11,6 +11,15 @@ on:
       cloni:
         description: "Motori con riferimento sintetico"
         default: '["chatterbox", "f5"]'
+      semi:
+        description: "Semi di Qwen separati da virgola"
+        default: "1256,1176"
+      rif_run:
+        description: "Numero di una corsa precedente da cui prendere riferimenti e campioni (facoltativo)"
+        default: ""
+permissions:
+  contents: read
+  actions: read
 jobs:
   gen:
     runs-on: ubuntu-latest
@@ -19,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         motore: ${{ fromJSON(inputs.motori) }}
-    env: {TESTO: "${{ inputs.testo }}", HF_HUB_DISABLE_XET: "1"}
+    env: {TESTO: "${{ inputs.testo }}", HF_HUB_DISABLE_XET: "1", SEMI: "${{ inputs.semi }}", LIMITE: "600"}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -59,7 +68,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
-        with: {pattern: "c2-qwen-*1-*", path: rif, merge-multiple: true}
+        with:
+          pattern: "c2-qwen-*1-*"
+          path: rif
+          merge-multiple: true
+          run-id: ${{ inputs.rif_run || github.run_id }}
+          github-token: ${{ github.token }}
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - name: Chatterbox multilingue
@@ -97,6 +111,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with: {pattern: "c2*", path: tutti}
+      - uses: actions/download-artifact@v4
+        if: inputs.rif_run != ''
+        with:
+          pattern: "c2-*"
+          path: tutti/prima
+          run-id: ${{ inputs.rif_run }}
+          github-token: ${{ github.token }}
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - name: Banda e fruscio
