@@ -1,0 +1,56 @@
+name: f07-completo
+# Generazione delle letture della narratrice con Chatterbox multilingue (MIT), voce F07: clone della voce sintetica
+# Qwen3 «narratrice calda» (voce/rif/rif-F.wav). Chatterbox in CPU calcola circa 9 secondi per secondo di audio
+# sulle macchine a 4 processori, quindi il lavoro si divide in molti lotti paralleli (al massimo 20 alla volta).
+# Ogni job smette di cominciare testi nuovi alla scadenza; i testi rimasti finiscono in «mancanti» nel registro
+# e si riprendono aggiungendo le chiavi già fatte al file indicato in «fatti».
+# Con l'input «elenco» si passa la parte dei testi assegnata alla voce femminile.
+on:
+  workflow_dispatch:
+    inputs:
+      elenco:
+        description: "File dei testi preparati per la voce F07"
+        default: "voce/f07/testi.json"
+      fatti:
+        description: "File con le chiavi già fatte, da saltare"
+        default: "voce/f07/fatti.txt"
+      parti:
+        description: "Numero totale dei lotti (circa 1 lotto ogni 3.500 caratteri)"
+        default: "80"
+      lotti:
+        description: "Lotti da eseguire in questo lancio (elenco JSON)"
+        default: "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80]"
+      scadenza:
+        description: "Minuti di sintesi per job, oltre i quali non si comincia un testo nuovo"
+        default: "46"
+      verifica:
+        description: "Trascrizione di controllo con Whisper small (si o no)"
+        default: "si"
+jobs:
+  lotto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        lotto: ${{ fromJSON(inputs.lotti) }}
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
+          pip install -q faster-whisper
+      - name: Sintesi
+        run: /tmp/cb/bin/python voce/f07.py ${{ inputs.elenco }} out ${{ matrix.lotto }} ${{ inputs.parti }} $(( ${{ inputs.scadenza }} * 60 )) ${{ inputs.fatti }}
+      - name: Trascrizione di controllo
+        if: always() && inputs.verifica == 'si'
+        run: python voce/viktor_verifica.py ${{ inputs.elenco }} out small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "f07-lotto-${{ matrix.lotto }}", path: out, if-no-files-found: warn, retention-days: 14}

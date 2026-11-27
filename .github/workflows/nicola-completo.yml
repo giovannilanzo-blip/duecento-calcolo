@@ -11,7 +11,7 @@ on:
         default: "im_nicola"
       elenco:
         description: "File dei testi preparati"
-        default: "voce/viktor/testi.json"
+        default: "voce/nicola/testi.json"
       fatti:
         description: "File con le chiavi già fatte, da saltare"
         default: "voce/nicola/fatti.txt"

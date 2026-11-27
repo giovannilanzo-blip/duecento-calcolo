@@ -147,13 +147,24 @@ function frasi(s) {
   return fin;
 }
 
+/* Preparazione per ciascuna voce, scelta con la prova delle date del 27/11/2026 (Whisper e durate):
+   - le cifre lasciate al modello vanno escluse per entrambe: Chatterbox le storpia («duodo cente», «5333») e Kokoro legge
+     «1°» come «1 gradi» e «40.000» come «40, l'ero 00»;
+   - fra le tre grafie in lettere le trascrizioni risultano corrette per entrambe le voci; la grafia attaccata dà le letture
+     più scorrevoli e più brevi (nessuna pausa fra «mille» e «duecento»), e per Chatterbox la grafia separata ha prodotto
+     una ripetizione («a Roma, a Roma»). Le due voci hanno quindi profili distinti, oggi con la stessa grafia. */
+const PROFILI = { nicola: { numeri: 'attaccato' }, f07: { numeri: 'attaccato' } };
+
 if (require.main === module) {
+  // Uso: node prepara.js testi-tutti.json uscita.json [--voce nicola|f07]
   const [inp, out] = process.argv.slice(2);
+  const iv = process.argv.indexOf('--voce'), voce = iv > 0 ? process.argv[iv + 1] : 'nicola';
+  if (!PROFILI[voce]) throw new Error('voce sconosciuta: ' + voce);
   const L = JSON.parse(fs.readFileSync(inp, 'utf8'));
-  const R = L.map(x => { const lett = leggibile(x.testo); return { chiave: x.chiave, gruppo: x.gruppo, dove: x.dove, testo: x.testo, lettura: lett, frasi: frasi(lett) }; });
+  const R = L.map(x => { const lett = leggibile(x.testo, PROFILI[voce]); return { chiave: x.chiave, gruppo: x.gruppo, dove: x.dove, testo: x.testo, lettura: lett, frasi: frasi(lett) }; });
   fs.writeFileSync(out, JSON.stringify(R, null, 1));
   const resti = R.filter(x => /\d|\b[IVX]{2,}\b/.test(x.lettura));
   console.log('testi', R.length, 'frasi', R.reduce((a, x) => a + x.frasi.length, 0), 'caratteri letti', R.reduce((a, x) => a + x.lettura.length, 0));
   console.log('con cifre o romani rimasti:', resti.length); resti.slice(0, 20).forEach(x => console.log('  ', x.chiave, x.lettura.slice(0, 200)));
 }
-module.exports = { leggibile, frasi, cardinale, ordinale };
+module.exports = { leggibile, frasi, cardinale, ordinale, PROFILI };
