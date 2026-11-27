@@ -1,0 +1,47 @@
+name: provini-divisione
+# Provini delle due voci con la divisione per argomento: 5 letture di Nicola (Kokoro im_nicola) e 5 di F07 (Chatterbox).
+on:
+  workflow_dispatch:
+jobs:
+  nicola:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9" soundfile faster-whisper
+      - run: python voce/nicola.py voce/provini/nicola.json out/nicola 1 1
+      - if: always()
+        run: python voce/viktor_verifica.py voce/provini/nicola.json out/nicola small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: provini-nicola, path: out, if-no-files-found: warn}
+  f07:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      matrix:
+        lotto: [1, 2]
+    env: {HF_HUB_DISABLE_XET: "1"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Installazione
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+          python -m venv /tmp/cb
+          /tmp/cb/bin/pip install -q chatterbox-tts soundfile --extra-index-url https://download.pytorch.org/whl/cpu
+          pip install -q faster-whisper
+      - run: /tmp/cb/bin/python voce/f07.py voce/provini/f07.json out/f07 ${{ matrix.lotto }} 2
+      - if: always()
+        run: python voce/viktor_verifica.py voce/provini/f07.json out/f07 small
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "provini-f07-${{ matrix.lotto }}", path: out, if-no-files-found: warn}

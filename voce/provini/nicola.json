@@ -1,0 +1,37 @@
+[
+ {
+  "chiave": "928c20f36af99d2f",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.b_campaldino.0",
+  "testo": "Nel giugno 1289 l'esercito guelfo passò il valico della Consuma ed entrò nel Casentino. Il Casentino era territorio dei ghibellini di Arezzo. Nell'esercito guelfo c'erano fiorentini, lucchesi, pistoiesi, pratesi, senesi e altri alleati.",
+  "lettura": "Nel giugno milleduecentottantanove l'esercito guelfo passò il valico della Consuma ed entrò nel Casentino. Il Casentino era territorio dei ghibellini di Arezzo. Nell'esercito guelfo c'erano fiorentini, lucchesi, pistoiesi, pratesi, senesi e altri alleati."
+ },
+ {
+  "chiave": "bc858e65d79f96a9",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.castruccio.1",
+  "testo": "Da giovane andò in esilio. Visse come mercante e soldato in Inghilterra, nelle Fiandre, in Francia e in Lombardia. Così imparò il mestiere delle armi.",
+  "lettura": "Da giovane andò in esilio. Visse come mercante e soldato in Inghilterra, nelle Fiandre, in Francia e in Lombardia. Così imparò il mestiere delle armi."
+ },
+ {
+  "chiave": "da5b8aaf571c44f3",
+  "gruppo": "b-missioni",
+  "dove": "DIDATTICA.legnano.briefing.0",
+  "testo": "È la primavera del 1176. L'imperatore Federico Barbarossa è sceso in Italia per la quinta volta. Nel 1162 ha fatto distruggere Milano. Ora Milano è rinata. Con Brescia, Piacenza, Verona, Lodi, Novara, Vercelli e molte altre città ha giurato la Lega Lombarda.",
+  "lettura": "È la primavera del millecentosettantasei. L'imperatore Federico Barbarossa è sceso in Italia per la quinta volta. Nel millecentosessantadue ha fatto distruggere Milano. Ora Milano è rinata. Con Brescia, Piacenza, Verona, Lodi, Novara, Vercelli e molte altre città ha giurato la Lega Lombarda."
+ },
+ {
+  "chiave": "15f144524bc5f01e",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.gl_pavese.0",
+  "testo": "Il pavese era un grande scudo rettangolare. Il soldato poteva appoggiarlo a terra e ripararsi dietro. Proteggeva soprattutto i balestrieri mentre ricaricavano.",
+  "lettura": "Il pavese era un grande scudo rettangolare. Il soldato poteva appoggiarlo a terra e ripararsi dietro. Proteggeva soprattutto i balestrieri mentre ricaricavano."
+ },
+ {
+  "chiave": "9d970dfbc84f4527",
+  "gruppo": "a-lezioni",
+  "dove": "comuni_fazioni.obiettivi.completo.0",
+  "testo": "Conoscerai il Comune, la città che si governava da sé con magistrati eletti: prima i consoli, poi il podestà.",
+  "lettura": "Conoscerai il Comune, la città che si governava da sé con magistrati eletti: prima i consoli, poi il podestà."
+ }
+]

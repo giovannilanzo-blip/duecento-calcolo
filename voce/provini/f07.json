@@ -1,0 +1,37 @@
+[
+ {
+  "chiave": "23c67e3270190a1e",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.v_alimentazione.0",
+  "testo": "Il cibo principale era il pane. I ricchi mangiavano pane bianco di frumento. I poveri mangiavano pani più scuri, di segale, orzo, miglio o panico, a volte mescolati con legumi.",
+  "lettura": "Il cibo principale era il pane. I ricchi mangiavano pane bianco di frumento. I poveri mangiavano pani più scuri, di segale, orzo, miglio o panico, a volte mescolati con legumi."
+ },
+ {
+  "chiave": "3cdb4a8ee1a98af2",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.a_guarnacca.2",
+  "testo": "Gli uomini anziani, i giuristi, i medici e i cittadini importanti la portavano lunga fino ai piedi. Era un segno di dignità e di serietà. I giovani preferivano abiti più corti.",
+  "lettura": "Gli uomini anziani, i giuristi, i medici e i cittadini importanti la portavano lunga fino ai piedi. Era un segno di dignità e di serietà. I giovani preferivano abiti più corti."
+ },
+ {
+  "chiave": "37ecab1f0b7749eb",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.e_fiorino.1",
+  "testo": "Su un lato c'era il giglio, simbolo della città, con la scritta FLORENTIA. Sull'altro lato c'era san Giovanni Battista, patrono di Firenze.",
+  "lettura": "Su un lato c'era il giglio, simbolo della città, con la scritta Florentia. Sull'altro lato c'era san Giovanni Battista, patrono di Firenze."
+ },
+ {
+  "chiave": "d54c7c1a4685849e",
+  "gruppo": "d-codice-principale",
+  "dove": "DIDATTICA.f_confraternite.0",
+  "testo": "Le confraternite erano associazioni di laici, cioè di persone che non erano preti o frati. Ne facevano parte uomini e a volte donne. Si riunivano per pregare, aiutarsi e fare carità.",
+  "lettura": "Le confraternite erano associazioni di laici, cioè di persone che non erano preti o frati. Ne facevano parte uomini e a volte donne. Si riunivano per pregare, aiutarsi e fare carità."
+ },
+ {
+  "chiave": "f59bd734a450d8f8",
+  "gruppo": "c-codice",
+  "dove": "DIDATTICA_SICILIA.s_scuola_siciliana.0",
+  "testo": "Alla corte di Federico II alcuni funzionari scrivevano poesie d'amore. Non scrivevano in latino, ma in volgare, cioè nella lingua parlata in Sicilia.",
+  "lettura": "Alla corte di Federico secondo alcuni funzionari scrivevano poesie d'amore. Non scrivevano in latino, ma in volgare, cioè nella lingua parlata in Sicilia."
+ }
+]
