@@ -77,6 +77,8 @@ function leggibile(t) {
   NOMI.forEach(([a, b]) => { s = s.replace(new RegExp('(?<![\\wÀ-ÿ])' + a + '(?![\\wÀ-ÿ])', 'g'), b); });
   // virgolette tolte (la frase citata resta), barre dei versi come pause
   s = s.replace(/[«»"“”]/g, '').replace(/\s\/\s/g, ', ');
+  // articolo dantesco «'l» letto come «el» (Kokoro altrimenti legge la lettera «elle»); «'nnanellata» come «innanellata»
+  s = s.replace(/(\s)['’]l(?=\s)/g, '$1el').replace(/(\s)['’]nn/g, '$1inn');
   // riferimenti danteschi
   s = s.replace(new RegExp('\\b(' + OPERE + ') ([IVXL]+), (\\d+)-(\\d+)', 'g'), (m, o, r, a, b) => o + ', canto ' + ordinale(romano(r)) + ', versi ' + numeroTesto(a) + ' e ' + numeroTesto(b));
   s = s.replace(new RegExp('\\b(' + OPERE + ') ([IVXL]+)\\b', 'g'), (m, o, r) => o + ', canto ' + ordinale(romano(r)));
