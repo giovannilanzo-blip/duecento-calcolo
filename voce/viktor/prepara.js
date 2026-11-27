@@ -82,12 +82,29 @@ const NOMI = [
 ];
 // opere con canti: «Inferno X» → «Inferno, canto decimo»
 const OPERE = 'Inferno|Purgatorio|Paradiso';
+/* Accenti tonici nel testo letto (prova del 27/11/2026): solo parole sdrucciole o lette male dalle voci.
+   Kokoro, senza accento, legge «segàle», «pànico» (il cereale), «Lucèra», «Marsàla», «Montapèrti», «Dovàdola»;
+   con l'accento grafico rispetta sempre l'accento tonico (fonemi controllati). Chatterbox non peggiora con l'accento
+   grafico secondo la trascrizione di controllo; l'accento va comunque verificato all'ascolto.
+   Forma: [parola o espressione, forma accentata]. Le espressioni servono per gli omografi (principi, panico). */
+const ACCENTI = [
+  ['miglio o panico', 'miglio o panìco'], ['principi angioini', 'prìncipi angioini'], ['principi opposti', 'princìpi opposti'],
+  ['segale', 'ségale'], ['mangano', 'màngano'], ['briccola', 'brìccola'], ['fondaco', 'fòndaco'], ['estimo', 'èstimo'],
+  ['companatico', 'companàtico'], ['sughera', 'sùghera'], ['mantici', 'màntici'], ['incudini', 'incùdini'], ['argani', 'àrgani'],
+  ['decima', 'dècima'], ['Procida', 'Pròcida'], ['Lucera', 'Lùcera'], ['Fiesole', 'Fièsole'], ['Trapani', 'Tràpani'],
+  ['Marsala', 'Màrsala'], ['Cagliari', 'Càgliari'], ['Tunisi', 'Tùnisi'], ['Montaperti', 'Montàperti'], ['Empoli', 'Èmpoli'],
+  ['Arbia', 'Àrbia'], ['Cassaro', 'Càssaro'], ['Caccamo', 'Càccamo'], ['Dovadola', 'Dòvadola'], ['Rotari', 'Ròtari'],
+  ['Iacopo', 'Iàcopo'], ['Tiepolo', 'Tièpolo'], ['Dandolo', 'Dàndolo'], ['Taranto', 'Tàranto'], ['Eboli', 'Èboli'],
+  ['Capua', 'Càpua'], ['Brindisi', 'Brìndisi'], ['Marettimo', 'Marèttimo'], ['Peretola', 'Perètola'], ['Modena', 'Mòdena'],
+  ['Bergamo', 'Bèrgamo'], ['Padova', 'Pàdova'], ['Mantova', 'Màntova'], ['Sambuca', 'Sàmbuca'], ['Tiepido', 'Tièpido'], ['Panaro', 'Pànaro']
+];
 
 // opz: { numeri: 'attaccato' | 'separato' | 'misto', cifre: true per lasciare cifre e numeri romani al modello }
 function leggibile(t, opz) {
-  Object.assign(STILE, { numeri: 'attaccato', cifre: false }, opz || {});
+  Object.assign(STILE, { numeri: 'attaccato', cifre: false, accenti: false }, opz || {});
   let s = ' ' + t + ' ';
   NOMI.forEach(([a, b]) => { s = s.replace(new RegExp('(?<![\\wÀ-ÿ])' + a + '(?![\\wÀ-ÿ])', 'g'), b); });
+  if (STILE.accenti) ACCENTI.forEach(([a, b]) => { s = s.replace(new RegExp('(?<![\\wÀ-ÿ])' + a + '(?![\\wÀ-ÿ])', 'g'), b); });
   // virgolette tolte (la frase citata resta), barre dei versi come pause
   s = s.replace(/[«»"“”]/g, '').replace(/\s\/\s/g, ', ');
   // articolo dantesco «'l» letto come «el» (Kokoro altrimenti legge la lettera «elle»); «'nnanellata» come «innanellata»
@@ -117,7 +134,7 @@ function leggibile(t, opz) {
   s = s.replace(/%/g, ' per cento');
   // parentesi come pause
   s = s.replace(/\s*\(\s*/g, ', ').replace(/\s*\)\s*([.,;:!?])/g, '$1').replace(/\s*\)\s*/g, ', ');
-  s = s.replace(/\s+,/g, ',').replace(/,\s*,/g, ',').replace(/,\s*([.;:!?])/g, '$1').replace(/^\s*,\s*/, '').replace(/\s+/g, ' ').trim();
+  s = s.replace(/\s+,/g, ',').replace(/,\s*,/g, ',').replace(/,\s*([.;:!?])/g, '$1').replace(/([;:!?])\s*,/g, '$1').replace(/([?!])\./g, '$1').replace(/^\s*,\s*/, '').replace(/\s+/g, ' ').trim();
   return s;
 }
 
@@ -153,7 +170,7 @@ function frasi(s) {
    - fra le tre grafie in lettere le trascrizioni risultano corrette per entrambe le voci; la grafia attaccata dà le letture
      più scorrevoli e più brevi (nessuna pausa fra «mille» e «duecento»), e per Chatterbox la grafia separata ha prodotto
      una ripetizione («a Roma, a Roma»). Le due voci hanno quindi profili distinti, oggi con la stessa grafia. */
-const PROFILI = { nicola: { numeri: 'attaccato' }, f07: { numeri: 'attaccato' } };
+const PROFILI = { nicola: { numeri: 'attaccato', accenti: true }, f07: { numeri: 'attaccato', accenti: true } };
 
 if (require.main === module) {
   // Uso: node prepara.js testi-tutti.json uscita.json [--voce nicola|f07]
@@ -167,4 +184,4 @@ if (require.main === module) {
   console.log('testi', R.length, 'frasi', R.reduce((a, x) => a + x.frasi.length, 0), 'caratteri letti', R.reduce((a, x) => a + x.lettura.length, 0));
   console.log('con cifre o romani rimasti:', resti.length); resti.slice(0, 20).forEach(x => console.log('  ', x.chiave, x.lettura.slice(0, 200)));
 }
-module.exports = { leggibile, frasi, cardinale, ordinale, PROFILI };
+module.exports = { leggibile, frasi, cardinale, ordinale, PROFILI, ACCENTI };
