@@ -47,8 +47,9 @@ jobs:
           mkdir -p out
           export PA_SAMPLES=${{ inputs.campioni }} PA_SHRES=${{ inputs.ombre }}
           if [ -n "${{ inputs.elenco }}" ]; then
-            [ "$P" = "0" ] || exit 0
-            ARG="--frames ${{ inputs.elenco }}"
+            L=$(echo "${{ inputs.elenco }}" | python3 -c "import sys; v=sys.stdin.read().strip().split(','); print(','.join(v[$P::$N]))")
+            [ -n "$L" ] || exit 0
+            ARG="--frames $L"
           else
             ARG="--render $a $b"
           fi
